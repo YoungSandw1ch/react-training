@@ -1,19 +1,31 @@
-function CartItem() {
+import PropTypes from 'prop-types';
+
+function CartItem({ item }) {
+  const amount = item.price * item.count;
+
   return (
-    <div className="card-item">
-      <span>name</span>
-      <span>100$</span>
+    <li className="card-item">
+      <span>{item.name}</span>
+      <span>{item.price}$</span>
 
       <div>
         <button>-</button>
-        <span>2</span>
+        <span>{item.count}</span>
         <button>+</button>
       </div>
 
-      <span>200$</span>
+      <span>{amount}$</span>
       <button>x</button>
-    </div>
+    </li>
   )
+}
+
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    price: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
 }
 
 export default CartItem;
