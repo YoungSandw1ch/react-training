@@ -11,7 +11,7 @@ const initialState = [
 
 function Cart() {
   return (
-    <div className="Cart">
+    <div className="cart">
       <CartInputForm />
       <Loader />
       <CartList items={initialState} />
