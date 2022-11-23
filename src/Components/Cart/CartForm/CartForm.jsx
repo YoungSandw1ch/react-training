@@ -1,9 +1,16 @@
-import { Box } from 'Components/Common/';
-import { Label, Name, Input, Button } from './CartForm.styled';
+import { Box, Button } from 'Components/Common/';
+import { Label, Name, Input } from './CartForm.styled';
 
 export const CartForm = () => {
   return (
-    <Box>
+    <Box
+      display="flex"
+      flexDirections="column"
+      gridColumnGap={3}
+      justifyContent="center"
+      alignItems="center"
+      mb={4}
+    >
       <Label>
         <Name>name</Name>
         <Input type="text" />
@@ -12,7 +19,9 @@ export const CartForm = () => {
         <Name>price</Name>
         <Input type="number" />
       </Label>
-      <Button>+add</Button>
+      <Button type="button" variant="addButton">
+        add
+      </Button>
     </Box>
   );
 };

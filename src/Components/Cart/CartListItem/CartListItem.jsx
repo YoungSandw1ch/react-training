@@ -6,17 +6,17 @@ export const CartListItem = ({ name, count, price }) => {
   const amount = price * count;
   return (
     <Item>
-      <Property>{name}</Property>
+      <Property>{name} :</Property>
       <Property>{price}$</Property>
 
-      <Box>
-        <Button>-</Button>
+      <Box display="flex" gridColumnGap={3} alignItems="center">
+        <Button variant="countButton">-</Button>
         <Count>{count}</Count>
-        <Button>+</Button>
+        <Button variant="countButton">+</Button>
       </Box>
 
       <Amount>{amount}$</Amount>
-      <Button>x</Button>
+      <Button variant="closeButton">x</Button>
     </Item>
   );
 };

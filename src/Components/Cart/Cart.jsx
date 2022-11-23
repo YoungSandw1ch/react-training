@@ -6,10 +6,17 @@ import { TotalAmount } from './TotalAmount/TotalAmount';
 
 export const Cart = ({ initialState }) => {
   return (
-    <Box>
+    <Box
+      width="five"
+      mx="auto"
+      p={4}
+      border="normal"
+      borderRadius="normal"
+      backgroundColor="tableHead"
+    >
       <CartForm />
       <Loader>Loading...</Loader>
-      <Box as="ul">
+      <Box as="ul" listStyle="none" mb={4}>
         {initialState.map(item => (
           <CartListItem
             key={item.id}

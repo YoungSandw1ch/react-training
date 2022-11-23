@@ -4,7 +4,7 @@ import initialState from 'data/initialState.json';
 
 export function App() {
   return (
-    <Box>
+    <Box p={5} mx="auto" width="container">
       <Cart initialState={initialState} />
     </Box>
   );

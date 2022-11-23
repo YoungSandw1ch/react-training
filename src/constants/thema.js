@@ -63,6 +63,7 @@ export const theme = {
   },
 
   sizes: {
+    button: '25px',
     chip: '15px',
     half: '50px',
     one: '100px',
@@ -70,6 +71,7 @@ export const theme = {
     friends: '298px',
     three: '300px',
     four: '400px',
+    five: '500px',
     profile: '350px',
     container: '1030px',
     avatar: '150px',
