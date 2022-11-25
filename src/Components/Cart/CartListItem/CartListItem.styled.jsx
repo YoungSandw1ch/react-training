@@ -24,4 +24,5 @@ export const Count = styled.span`
 `;
 export const Amount = styled.span`
   flex-basis: calc((100% - 4 * 5px) / 5);
+  font-size: ${({ theme }) => theme.fontSizes.xm};
 `;
