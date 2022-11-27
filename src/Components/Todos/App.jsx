@@ -21,6 +21,7 @@ export class App extends Component {
       (acc, t) => (t.completed ? acc + 1 : acc),
       0
     );
+
     return (
       <Box p={5} mx="auto" width="container">
         <Box mb={3}>

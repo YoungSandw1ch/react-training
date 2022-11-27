@@ -27,6 +27,11 @@
 .todoList__text {
 }
 
+.completed {
+  font-style: italic;
+  text-decoration: line-through;
+}
+
 .todoList__button {
   width: 25px;
   height: 25px;
