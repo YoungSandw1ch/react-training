@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './counterControl.module.css';
 
-export class CounterControls extends Component {
-  render() {
-    return (
-      <div className={styles.counter__controls}>
-        <button type="button">Увеличить</button>
-        <button type="button">Уменьшить</button>
-      </div>
-    );
-  }
-}
+export const CounterControls = ({ onIncrement, onDecrement }) => {
+  return (
+    <div className={styles.counter__controls}>
+      <button type="button" onClick={onIncrement}>
+        Увеличить
+      </button>
+      <button type="button" onClick={onDecrement}>
+        Уменьшить
+      </button>
+    </div>
+  );
+};

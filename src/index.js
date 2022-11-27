@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
+import 'modern-normalize/modern-normalize.css';
 import { App } from './Components/App';
-import { ThemeProvider } from 'styled-components'
-import { theme } from './constants/thema'
+import { ThemeProvider } from 'styled-components';
+import { theme } from './constants/thema';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,4 +14,3 @@ root.render(
     </ThemeProvider>
   </React.StrictMode>
 );
-
