@@ -9,8 +9,8 @@ import { Box } from './Common/Box.styled';
 
 // import { Counter } from './State/Counter';
 // import { Dropdown } from './State/Dropdown';
-import { ColorPicker } from './State/ColorPicker';
-import { colorPickerOptions } from './State/ColorPicker/options';
+// import { ColorPicker } from './State/ColorPicker';
+// import { colorPickerOptions } from './State/ColorPicker/options';
 
 export function App() {
   return (
@@ -19,7 +19,7 @@ export function App() {
 
       {/* <Counter initialValue={0} /> */}
       {/* <Dropdown /> */}
-      <ColorPicker options={colorPickerOptions} />
+      {/* <ColorPicker options={colorPickerOptions} /> */}
     </Box>
   );
 }

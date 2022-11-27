@@ -4,7 +4,7 @@ import styles from './Colorpicker.module.css';
 
 export class ColorPicker extends Component {
   static defaultProps = {
-    options: [],
+    options: [{ label: 'red', color: '#F44336' }],
   };
 
   static propTypes = {
