@@ -16,12 +16,11 @@ export const Item = styled.li`
     margin-bottom: ${({ theme }) => theme.space[2]}px;
   }
 `;
+
 export const Property = styled.span`
   flex-basis: calc((100% - 4 * 5px) / 5);
 `;
-export const Count = styled.span`
-  flex-basis: calc((100% - 4 * 5px) / 5);
-`;
+
 export const Amount = styled.span`
   flex-basis: calc((100% - 4 * 5px) / 5);
   font-size: ${({ theme }) => theme.fontSizes.xm};

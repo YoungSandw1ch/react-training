@@ -1,6 +1,7 @@
-import { Item, Property, Count, Amount } from './CartListItem.styled';
-import { Box } from 'Components/Common';
+import PropTypes from 'prop-types';
+import { Item, Property, Amount } from './CartListItem.styled';
 import { Button } from 'Components/Common';
+import { Counter } from '../Counter';
 
 export const CartListItem = ({ name, count, price }) => {
   const amount = price * count;
@@ -9,14 +10,16 @@ export const CartListItem = ({ name, count, price }) => {
       <Property>{name} :</Property>
       <Property>{price}$</Property>
 
-      <Box display="flex" gridColumnGap={3} alignItems="center">
-        <Button variant="countButton">-</Button>
-        <Count>{count}</Count>
-        <Button variant="countButton">+</Button>
-      </Box>
+      <Counter value={count} />
 
       <Amount>{amount}$</Amount>
       <Button variant="closeButton">x</Button>
     </Item>
   );
+};
+
+CartListItem.propTypes = {
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
 };

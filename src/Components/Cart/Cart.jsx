@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Box } from 'Components/Common/Box.styled';
 import { CartForm } from './CartForm/CartForm';
 import { Loader } from './Loader/Loader';
@@ -29,4 +30,15 @@ export const Cart = ({ initialState }) => {
       <TotalAmount items={initialState} />
     </Box>
   );
+};
+
+Cart.propTypes = {
+  initialState: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      count: PropTypes.number.isRequired,
+      price: PropTypes.number.isRequired,
+    }).isRequired
+  ).isRequired,
 };
