@@ -77,6 +77,8 @@ export const theme = {
     avatar: '150px',
     friendsAvatar: '60px',
     statistic: '80px',
+    card: '570px',
+    item: '32px',
   },
 
   shadows: {

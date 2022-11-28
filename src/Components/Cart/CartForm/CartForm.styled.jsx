@@ -12,5 +12,5 @@ export const Name = styled.span`
 export const Input = styled.input`
   border: none;
   border-radius: ${({ theme }) => theme.radii.normal};
-  height: ${({ theme }) => theme.fontSizes.xm};
+  height: ${({ theme }) => theme.sizes.button};
 `;

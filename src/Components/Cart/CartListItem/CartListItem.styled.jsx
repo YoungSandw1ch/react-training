@@ -6,7 +6,7 @@ export const Item = styled.li`
   background-color: ${({ theme }) => theme.colors.white};
   border-radius: ${({ theme }) => theme.radii.normal};
 
-  height: ${({ theme }) => theme.sizes.button};
+  height: ${({ theme }) => theme.sizes.item};
   padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
   display: flex;
   align-items: center;
