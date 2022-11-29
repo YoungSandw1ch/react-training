@@ -3,12 +3,7 @@ import { Item, Property, Amount } from './CartListItem.styled';
 import { Button } from 'Components/Common';
 import { Counter } from '../Counter';
 
-export const CartListItem = ({
-  item,
-  onIncrement,
-  onDecrement,
-  onRemoveItem,
-}) => {
+export const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
   const { price, count, name, id } = item;
   const amount = price * count;
   const removeItem = () => onRemoveItem(id);
@@ -18,12 +13,7 @@ export const CartListItem = ({
       <Property>{name} :</Property>
       <Property>{price}$</Property>
 
-      <Counter
-        id={id}
-        value={count}
-        onIncrement={onIncrement}
-        onDecrement={onDecrement}
-      />
+      <Counter id={id} value={count} onCountChange={onCountChange} />
 
       <Amount>{amount}$</Amount>
       <Button variant="closeButton" onClick={removeItem}>
@@ -40,6 +30,6 @@ CartListItem.propTypes = {
     count: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
   }),
-  onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired,
+  onCountChange: PropTypes.func.isRequired,
+  onRemoveItem: PropTypes.func.isRequired,
 };

@@ -9,22 +9,17 @@ import { TotalAmount } from './TotalAmount/TotalAmount';
 export const Cart = ({ initialState }) => {
   const [items, setItems] = useState(initialState);
 
-  const handleDecrement = id => {
+  const handleChangeCount = (id, step) => {
     setItems(prev =>
-      prev.map(item => {
-        const count =
-          item.id === id
-            ? item.count - 1 < 1
-              ? 0
-              : item.count - 1
-            : item.count;
-        return { ...item, count };
-      })
+      prev.map(item =>
+        item.id === id
+          ? {
+              ...item,
+              count: item.count + step > 0 ? item.count + step : 0,
+            }
+          : item
+      )
     );
-  };
-
-  const handleIncrement = id => {
-    console.log('+', id);
   };
 
   const handleRemoveItem = id =>
@@ -43,8 +38,7 @@ export const Cart = ({ initialState }) => {
       <Loader>Loading...</Loader>
       <CartList
         items={items}
-        onIncrement={handleIncrement}
-        onDecrement={handleDecrement}
+        onCountChange={handleChangeCount}
         onRemoveItem={handleRemoveItem}
       />
       <TotalAmount items={items} />

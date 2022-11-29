@@ -2,13 +2,12 @@ import PropTypes from 'prop-types';
 import { CartListItem } from '../CartListItem/CartListItem';
 import { Box } from 'Components/Common';
 
-export const CartList = ({ items, onIncrement, onDecrement, onRemoveItem }) => {
+export const CartList = ({ items, onCountChange, onRemoveItem }) => {
   return (
     <Box as="ul" listStyle="none" mb={4}>
       {items.map(item => (
         <CartListItem
-          onIncrement={onIncrement}
-          onDecrement={onDecrement}
+          onCountChange={onCountChange}
           onRemoveItem={onRemoveItem}
           key={item.id}
           item={item}
@@ -27,6 +26,6 @@ CartList.propTypes = {
       price: PropTypes.number.isRequired,
     }).isRequired
   ).isRequired,
-  onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired,
+  onCountChange: PropTypes.func.isRequired,
+  onRemoveItem: PropTypes.func.isRequired,
 };
