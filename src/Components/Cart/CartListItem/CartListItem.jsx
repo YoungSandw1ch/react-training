@@ -4,32 +4,42 @@ import { Button } from 'Components/Common';
 import { Counter } from '../Counter';
 
 export const CartListItem = ({
-  name,
-  count,
-  price,
+  item,
   onIncrement,
   onDecrement,
+  onRemoveItem,
 }) => {
+  const { price, count, name, id } = item;
   const amount = price * count;
+  const removeItem = () => onRemoveItem(id);
+
   return (
     <Item>
       <Property>{name} :</Property>
       <Property>{price}$</Property>
 
       <Counter
+        id={id}
         value={count}
         onIncrement={onIncrement}
         onDecrement={onDecrement}
       />
 
       <Amount>{amount}$</Amount>
-      <Button variant="closeButton">x</Button>
+      <Button variant="closeButton" onClick={removeItem}>
+        x
+      </Button>
     </Item>
   );
 };
 
 CartListItem.propTypes = {
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
+  item: PropTypes.exact({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    count: PropTypes.number.isRequired,
+    id: PropTypes.string.isRequired,
+  }),
+  onIncrement: PropTypes.func.isRequired,
+  onDecrement: PropTypes.func.isRequired,
 };
