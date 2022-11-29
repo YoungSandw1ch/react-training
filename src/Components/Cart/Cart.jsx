@@ -1,11 +1,21 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Box } from 'Components/Common/Box.styled';
 import { CartForm } from './CartForm/CartForm';
 import { Loader } from './Loader/Loader';
-import { CartListItem } from './CartListItem/CartListItem';
+import { CartList } from './CartList/Cartlist';
 import { TotalAmount } from './TotalAmount/TotalAmount';
 
 export const Cart = ({ initialState }) => {
+  const [items, setItems] = useState(initialState);
+
+  const handleDecrement = () => {
+    console.log('-');
+  };
+  const handleIncrement = () => {
+    console.log('+');
+  };
+
   return (
     <Box
       width="card"
@@ -17,17 +27,12 @@ export const Cart = ({ initialState }) => {
     >
       <CartForm />
       <Loader>Loading...</Loader>
-      <Box as="ul" listStyle="none" mb={4}>
-        {initialState.map(item => (
-          <CartListItem
-            key={item.id}
-            name={item.name}
-            count={item.count}
-            price={item.price}
-          />
-        ))}
-      </Box>
-      <TotalAmount items={initialState} />
+      <CartList
+        items={items}
+        onIncrement={handleIncrement}
+        onDecrement={handleDecrement}
+      />
+      <TotalAmount items={items} />
     </Box>
   );
 };
