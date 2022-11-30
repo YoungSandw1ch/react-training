@@ -79,6 +79,7 @@ export const theme = {
     statistic: '80px',
     card: '570px',
     item: '32px',
+    value: '20px',
   },
 
   shadows: {

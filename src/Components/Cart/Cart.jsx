@@ -8,6 +8,7 @@ import { TotalAmount } from './TotalAmount/TotalAmount';
 
 export const Cart = ({ initialState }) => {
   const [items, setItems] = useState(initialState);
+  const [isLoding] = useState(false);
 
   const handleChangeCount = (id, step) => {
     setItems(prev =>
@@ -35,7 +36,7 @@ export const Cart = ({ initialState }) => {
       backgroundColor="tableHead"
     >
       <CartForm />
-      <Loader>Loading...</Loader>
+      {isLoding && <Loader>Loading...</Loader>}
       <CartList
         items={items}
         onCountChange={handleChangeCount}
