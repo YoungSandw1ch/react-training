@@ -23,7 +23,7 @@ export class App extends Component {
         if (todo.id === id) {
           return { ...todo, completed: !todo.completed };
         }
-        return { ...todo };
+        return todo;
       }),
     }));
   };

@@ -18,10 +18,16 @@
   border: 1px dashed grey;
   border-radius: 4px;
   background-color: #fff;
+
+  transition: transform 250ms linear;
 }
 
 .todoList__item:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.todoList__item:hover {
+  transform: scale(1.03);
 }
 
 .todoList__text {

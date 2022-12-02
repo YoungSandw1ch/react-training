@@ -5,12 +5,16 @@ export const TodoList = ({ todos, deleteTodo, onToggleCompleted }) => {
   return (
     <ul className={styles.todoLIst}>
       {todos.map(({ id, text, completed }) => (
-        <li className={styles.todoList__item} key={id}>
+        <li
+          className={styles.todoList__item}
+          key={id}
+          onClick={() => onToggleCompleted(id)}
+        >
           <input
             className={styles.todoList__input}
             type="checkbox"
             checked={completed}
-            onChange={() => onToggleCompleted(id)}
+            onChange={() => {}}
           />
           <p
             className={classNames(styles.todoList__text, {
