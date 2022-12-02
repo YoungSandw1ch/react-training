@@ -32,6 +32,11 @@
   text-decoration: line-through;
 }
 
+.todoList__input {
+  width: 20px;
+  height: 20px;
+}
+
 .todoList__button {
   width: 25px;
   height: 25px;
