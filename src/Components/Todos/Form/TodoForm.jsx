@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
-import { TextArea, Label, Button } from './TodoForm.styled';
+import { Input, Label, Button, Error } from './TodoForm.styled';
 
 const schema = yup.object().shape({
   text: yup.string().required().min(3).max(20),
@@ -31,8 +31,8 @@ export const TodoForm = ({ onSubmit }) => {
     >
       <Form autoComplete="off">
         <Label>
-          <TextArea type="text" name="text" />
-          <ErrorMessage name="text" />
+          <Input type="text" name="text" />
+          <ErrorMessage component={Error} name="text" />
         </Label>
         <Button type="submit">Добавить</Button>
       </Form>

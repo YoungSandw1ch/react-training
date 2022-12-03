@@ -1,7 +1,7 @@
 import { Field } from 'formik';
 import styled from 'styled-components';
 
-export const TextArea = styled(Field)`
+export const Input = styled(Field)`
   width: 100%;
   height: 50px;
   resize: none;
@@ -9,6 +9,7 @@ export const TextArea = styled(Field)`
 `;
 
 export const Label = styled.label`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,6 +19,19 @@ export const Label = styled.label`
   text-transform: uppercase;
   font-size: ${({ theme }) => theme.fontSizes.m};
   color: ${({ theme }) => theme.colors.fistFontColor};
+`;
+
+export const Error = styled.p`
+  position: absolute;
+  top: 61px;
+  /* left: center; */
+
+  font-size: ${({ theme }) => theme.fontSizes.m};
+  text-transform: lowercase;
+  padding: 5px 10px;
+
+  border-radius: ${({ theme }) => theme.radii.normal};
+  background-color: ${({ theme }) => theme.colors.white};
 `;
 
 export const Button = styled.button`
