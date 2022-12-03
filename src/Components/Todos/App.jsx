@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Box } from '../Common/Box.styled';
-import { TodoList } from './TodoList/TodoList';
+import { TodoList } from './TodoList';
+import { TodoForm } from './Form';
 import todos from 'data/todos.json';
 
 export class App extends Component {
@@ -28,6 +29,11 @@ export class App extends Component {
     }));
   };
 
+  handleSubmit = todo => {
+    console.log('todo: ', todo);
+    this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
+  };
+
   render() {
     const { todos } = this.state;
     const totalTodos = todos.length;
@@ -35,14 +41,29 @@ export class App extends Component {
 
     return (
       <Box p={5} mx="auto" width="container">
-        <TodoList
-          todos={todos}
-          deleteTodo={this.deleteTodo}
-          onToggleCompleted={this.toggleCompleted}
-        />
-        <Box mb={3} display="flex" gridColumnGap={4}>
-          <p>Общее кол-во: {totalTodos}</p>
-          <p>Кол-во выполненных: {completedTodos}</p>
+        <Box
+          width="five"
+          border="normal"
+          borderRadius="normal"
+          backgroundColor="lightYellow"
+          p={3}
+        >
+          <TodoForm onSubmit={this.handleSubmit} />
+          <TodoList
+            todos={todos}
+            deleteTodo={this.deleteTodo}
+            onToggleCompleted={this.toggleCompleted}
+          />
+          <Box
+            mb={3}
+            display="flex"
+            gridColumnGap={4}
+            justifyContent="center"
+            fontSize="xm"
+          >
+            <p>Общее кол-во: {totalTodos}</p>
+            <p>Кол-во выполненных: {completedTodos}</p>
+          </Box>
         </Box>
       </Box>
     );

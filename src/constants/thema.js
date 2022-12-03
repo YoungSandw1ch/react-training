@@ -16,6 +16,8 @@ export const theme = {
     tableRow: '#EDF1F3',
     tableHead: '#55BAD2',
     tableFont: '#888C8E',
+    lightYellow: 'rgb(247, 243, 161)',
+    darkRed: 'rgb(187, 53, 53)',
   },
 
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
@@ -87,6 +89,8 @@ export const theme = {
     -3px 3px 1px #dbe1ea`,
     friendsShadow: `3px 3px 1px #dbe1ea,
     -3px -2px 1px #dbe1ea`,
+    buttonActive: `2px 2px 2px #2a2a2a`,
+    normal: `1px 1px 1px grey`,
   },
 
   text: {

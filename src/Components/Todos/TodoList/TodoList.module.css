@@ -1,9 +1,9 @@
 .todoLIst {
-  width: 500px;
+  width: 100%;
 
-  padding: 10px;
-  background-color: rgb(247, 243, 161);
-  border-radius: 4px;
+  /* padding: 10px; */
+  /* background-color: rgb(247, 243, 161);
+  border-radius: 4px; */
 
   min-height: 181px;
 }
@@ -15,11 +15,12 @@
 
   padding: 10px;
 
-  border: 1px dashed grey;
+  border: 1px solid grey;
   border-radius: 4px;
   background-color: #fff;
+  box-shadow: 1px 1px 1px grey;
 
-  transition: transform 250ms linear;
+  transition: transform 250ms linear, border-style 250ms linear;
 }
 
 .todoList__item:not(:last-child) {
@@ -27,7 +28,8 @@
 }
 
 .todoList__item:hover {
-  transform: scale(1.03);
+  transform: scale(1.02);
+  border-style: dashed;
 }
 
 .todoList__text {
@@ -41,6 +43,8 @@
 .todoList__input {
   width: 20px;
   height: 20px;
+
+  accent-color: rgb(187, 53, 53);
 }
 
 .todoList__button {

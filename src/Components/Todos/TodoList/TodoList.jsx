@@ -1,4 +1,5 @@
 import styles from './TodoList.module.css';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const TodoList = ({ todos, deleteTodo, onToggleCompleted }) => {
@@ -33,4 +34,16 @@ export const TodoList = ({ todos, deleteTodo, onToggleCompleted }) => {
       ))}
     </ul>
   );
+};
+
+TodoList.propTypes = {
+  todos: PropTypes.arrayOf(
+    PropTypes.exact({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+    })
+  ),
+  deleteTodo: PropTypes.func,
+  onToggleCompleted: PropTypes.func,
 };
