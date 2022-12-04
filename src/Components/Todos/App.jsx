@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Box } from '../Common/Box.styled';
 import { TodoList } from './TodoList';
 import { TodoForm } from './Form';
-// import { Filter } from './Filter';
+import { Filter } from './Filter';
 import todos from 'data/todos.json';
 
 export class App extends Component {
@@ -41,10 +41,18 @@ export class App extends Component {
     this.setState(prevState => ({ ...prevState, filter }));
   };
 
+  createFilterTodos = (todos, filter) => {
+    const normalizeFilter = filter.toLowerCase();
+    return todos.filter(todo =>
+      todo.text.toLowerCase().includes(normalizeFilter)
+    );
+  };
+
   render() {
     const { todos, filter } = this.state;
     const totalTodos = todos.length;
     const completedTodos = this.countCompletedTodos(todos);
+    const filteredTodo = this.createFilterTodos(todos, filter);
 
     return (
       <Box p={5} mx="auto" width="container">
@@ -53,21 +61,13 @@ export class App extends Component {
           border="normal"
           borderRadius="normal"
           backgroundColor="lightYellow"
-          p={3}
+          px={3}
+          py={4}
         >
           <TodoForm onSubmit={this.handleSubmit} />
-          <label>
-            Фильтрация заметок
-            <input
-              type="text"
-              name="text"
-              value={filter}
-              onChange={this.changeFilter}
-            />
-          </label>
-          {/* <Filter onChange={this.changeFilter} /> */}
+          <Filter onChange={this.changeFilter} value={filter} />
           <TodoList
-            todos={todos}
+            todos={filteredTodo}
             deleteTodo={this.deleteTodo}
             onToggleCompleted={this.toggleCompleted}
           />

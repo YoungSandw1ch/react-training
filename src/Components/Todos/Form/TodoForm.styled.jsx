@@ -1,5 +1,9 @@
-import { Field } from 'formik';
+import { Field, Form } from 'formik';
 import styled from 'styled-components';
+
+export const Forma = styled(Form)`
+  margin-bottom: ${({ theme }) => theme.space[4]}px;
+`;
 
 export const Input = styled(Field)`
   width: 100%;
@@ -36,8 +40,6 @@ export const Error = styled.p`
 export const Button = styled.button`
   width: 100%;
   height: 35px;
-
-  margin-bottom: ${({ theme }) => theme.space[3]}px;
 
   font-size: ${({ theme }) => theme.fontSizes.ms};
   letter-spacing: 5px;

@@ -1,8 +1,10 @@
-export const Filter = ({ onChange }) => {
+import { Input, Label } from './Filter.styled';
+
+export const Filter = ({ onChange, value }) => {
   return (
-    <label>
+    <Label>
       Фильтрация заметок
-      <input type="text" name="text" onChange={onChange} />
-    </label>
+      <Input type="text" name="text" value={value} onChange={onChange} />
+    </Label>
   );
 };
