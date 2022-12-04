@@ -8,7 +8,11 @@ import todos from 'data/todos.json';
 export class App extends Component {
   state = {
     todos,
-    filter: '',
+    filter: {
+      text: '',
+      fulfilled: true,
+      notFulfilled: true,
+    },
   };
 
   deleteTodo = id => {
@@ -37,12 +41,28 @@ export class App extends Component {
   };
 
   changeFilter = e => {
-    const filter = e.currentTarget.value;
+    const { text, fulfilled, notFulfilled } = this.state.filter;
+    let filter = { text, fulfilled, notFulfilled };
+    switch (e.currentTarget.name) {
+      case 'text':
+        filter.text = e.currentTarget.value;
+        break;
+      case 'fulfilled':
+        filter.fulfilled = e.currentTarget.checked;
+        break;
+      case 'notFulfilled':
+        filter.notFulfilled = e.currentTarget.checked;
+        break;
+      default:
+        console.log('');
+    }
     this.setState(prevState => ({ ...prevState, filter }));
   };
 
-  createFilterTodos = (todos, filter) => {
-    const normalizeFilter = filter.toLowerCase();
+  createFilterTodos = (todos, { text, fulfilled, notFulfilled }) => {
+    const normalizeFilter = text.toLowerCase().trim();
+    if (!normalizeFilter) return todos;
+
     return todos.filter(todo =>
       todo.text.toLowerCase().includes(normalizeFilter)
     );
@@ -65,7 +85,7 @@ export class App extends Component {
           py={4}
         >
           <TodoForm onSubmit={this.handleSubmit} />
-          <Filter onChange={this.changeFilter} value={filter} />
+          <Filter onChange={this.changeFilter} filter={filter} />
           <TodoList
             todos={filteredTodo}
             deleteTodo={this.deleteTodo}

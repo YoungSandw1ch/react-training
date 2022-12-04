@@ -4,7 +4,6 @@ export const Label = styled.label`
   display: block;
   text-align: center;
 
-  margin-bottom: ${({ theme }) => theme.space[4]}px;
   padding: ${({ theme }) => `${theme.space[2]}px ${theme.space[3]}px`};
 
   border: ${({ theme }) => theme.borders.normal};
