@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Box } from '../Common/Box.styled';
 import { TodoList } from './TodoList';
 import { TodoForm } from './Form';
+// import { Filter } from './Filter';
 import todos from 'data/todos.json';
 
 export class App extends Component {
   state = {
     todos,
+    filter: '',
   };
 
   deleteTodo = id => {
@@ -34,8 +36,13 @@ export class App extends Component {
     this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
 
+  changeFilter = e => {
+    const filter = e.currentTarget.value;
+    this.setState(prevState => ({ ...prevState, filter }));
+  };
+
   render() {
-    const { todos } = this.state;
+    const { todos, filter } = this.state;
     const totalTodos = todos.length;
     const completedTodos = this.countCompletedTodos(todos);
 
@@ -49,6 +56,16 @@ export class App extends Component {
           p={3}
         >
           <TodoForm onSubmit={this.handleSubmit} />
+          <label>
+            Фильтрация заметок
+            <input
+              type="text"
+              name="text"
+              value={filter}
+              onChange={this.changeFilter}
+            />
+          </label>
+          {/* <Filter onChange={this.changeFilter} /> */}
           <TodoList
             todos={todos}
             deleteTodo={this.deleteTodo}

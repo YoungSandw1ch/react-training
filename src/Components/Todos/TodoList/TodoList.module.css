@@ -1,11 +1,7 @@
 .todoLIst {
   width: 100%;
-
-  /* padding: 10px; */
-  /* background-color: rgb(247, 243, 161);
-  border-radius: 4px; */
-
   min-height: 181px;
+  margin-bottom: 10px;
 }
 
 .todoList__item {

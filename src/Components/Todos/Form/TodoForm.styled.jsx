@@ -24,7 +24,6 @@ export const Label = styled.label`
 export const Error = styled.p`
   position: absolute;
   top: 61px;
-  /* left: center; */
 
   font-size: ${({ theme }) => theme.fontSizes.m};
   text-transform: lowercase;
