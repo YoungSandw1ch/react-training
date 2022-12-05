@@ -10,7 +10,6 @@ export const Filter = ({ onChange, filter }) => {
         <Input type="text" name="text" value={text} onChange={onChange} />
       </Label>
       <label>
-        {/* {done} */}
         выполнено
         <input
           type="checkbox"

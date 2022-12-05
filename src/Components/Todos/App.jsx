@@ -61,9 +61,14 @@ export class App extends Component {
 
   createFilterTodos = (todos, { text, fulfilled, notFulfilled }) => {
     const normalizeFilter = text.toLowerCase().trim();
-    if (!normalizeFilter) return todos;
+    let completedFilter = todos.reduce((acc, todo) => {
+      if (fulfilled && todo.completed) acc.push(todo);
+      if (notFulfilled && !todo.completed) acc.push(todo);
+      return acc;
+    }, []);
 
-    return todos.filter(todo =>
+    if (!normalizeFilter) return completedFilter;
+    return completedFilter.filter(todo =>
       todo.text.toLowerCase().includes(normalizeFilter)
     );
   };
