@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { Formik, ErrorMessage } from 'formik';
 import { nanoid } from 'nanoid';
@@ -38,4 +39,8 @@ export const TodoForm = ({ onSubmit }) => {
       </Forma>
     </Formik>
   );
+};
+
+TodoForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
 };
