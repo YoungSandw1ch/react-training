@@ -26,6 +26,8 @@ export const Cart = ({ initialState }) => {
   const handleRemoveItem = id =>
     setItems(prev => prev.filter(item => item.id !== id));
 
+  const handleSubmit = item => setItems(prev => [...prev, item]);
+
   return (
     <Box
       width="card"
@@ -35,7 +37,7 @@ export const Cart = ({ initialState }) => {
       borderRadius="normal"
       backgroundColor="tableHead"
     >
-      <CartForm />
+      <CartForm onSubmit={handleSubmit} />
       {isLoding && <Loader>Loading...</Loader>}
       <CartList
         items={items}

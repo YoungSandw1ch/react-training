@@ -1,6 +1,30 @@
 [
-  { "id": "1645674674", "name": "monitor", "price": 200, "count": 1 },
-  { "id": "2755765566", "name": "RAM", "price": 15, "count": 2 },
-  { "id": "3453543544", "name": "printer", "price": 10, "count": 1 },
-  { "id": "3453345438", "name": "router", "price": 30, "count": 4 }
+  {
+    "id": "1645674674",
+    "name": "monitor",
+    "price": 200,
+    "count": 1,
+    "guarantee": false
+  },
+  {
+    "id": "2755765566",
+    "name": "RAM",
+    "price": 15,
+    "count": 2,
+    "guarantee": false
+  },
+  {
+    "id": "3453543544",
+    "name": "printer",
+    "price": 10,
+    "count": 1,
+    "guarantee": true
+  },
+  {
+    "id": "3453345438",
+    "name": "router",
+    "price": 30,
+    "count": 4,
+    "guarantee": false
+  }
 ]

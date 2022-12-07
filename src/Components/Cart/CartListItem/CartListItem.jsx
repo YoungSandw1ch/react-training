@@ -4,13 +4,17 @@ import { Button } from 'Components/Common';
 import { Counter } from '../Counter';
 
 export const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
-  const { price, count, name, id } = item;
-  const amount = price * count;
+  const { price, count, name, id, guarantee } = item;
+  const amount = ((guarantee ? price * 0.01 + price : price) * count).toFixed(
+    1
+  );
   const removeItem = () => onRemoveItem(id);
 
   return (
     <Item>
-      <Property>{name} :</Property>
+      <Property>
+        {name} {guarantee && '+g'}:
+      </Property>
       <Property>{price}$</Property>
 
       <Counter id={id} value={count} onCountChange={onCountChange} />
@@ -29,6 +33,7 @@ CartListItem.propTypes = {
     price: PropTypes.number.isRequired,
     count: PropTypes.number.isRequired,
     id: PropTypes.string.isRequired,
+    guarantee: PropTypes.bool.isRequired,
   }),
   onCountChange: PropTypes.func.isRequired,
   onRemoveItem: PropTypes.func.isRequired,

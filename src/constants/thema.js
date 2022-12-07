@@ -18,6 +18,7 @@ export const theme = {
     tableFont: '#888C8E',
     lightYellow: 'rgb(247, 243, 161)',
     darkRed: 'rgb(187, 53, 53)',
+    violet: 'palevioletred',
   },
 
   space: [0, 2, 4, 8, 16, 32, 64, 128, 256],
@@ -79,7 +80,7 @@ export const theme = {
     avatar: '150px',
     friendsAvatar: '60px',
     statistic: '80px',
-    card: '570px',
+    card: '650px',
     item: '32px',
     value: '20px',
   },
