@@ -3,6 +3,7 @@ import { Box } from '../Common/Box.styled';
 import { TodoList } from './TodoList';
 import { TodoForm } from './Form';
 import { Filter } from './Filter';
+import { Modal } from 'Components/Common/Modal';
 import todos from 'data/todos.json';
 
 export class App extends Component {
@@ -13,7 +14,19 @@ export class App extends Component {
       fulfilled: true,
       notFulfilled: true,
     },
+    isModalShow: false,
   };
+
+  componentDidMount() {
+    const todos = JSON.parse(localStorage.getItem('todos'));
+    this.setState({ todos: todos });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.todos !== prevState.todos) {
+      localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+  }
 
   deleteTodo = id => {
     this.setState(prevState => ({
@@ -35,7 +48,7 @@ export class App extends Component {
     }));
   };
 
-  handleSubmit = todo => {
+  formSubmit = todo => {
     console.log('todo: ', todo);
     this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
@@ -74,7 +87,7 @@ export class App extends Component {
   };
 
   render() {
-    const { todos, filter } = this.state;
+    const { todos, filter, isModalShow } = this.state;
     const totalTodos = todos.length;
     const completedTodos = this.countCompletedTodos(todos);
     const filteredTodo = this.createFilterTodos(todos, filter);
@@ -89,7 +102,7 @@ export class App extends Component {
           px={3}
           py={4}
         >
-          <TodoForm onSubmit={this.handleSubmit} />
+          <TodoForm onSubmit={this.formSubmit} />
           <Filter onChange={this.changeFilter} filter={filter} />
           <TodoList
             todos={filteredTodo}
@@ -103,10 +116,11 @@ export class App extends Component {
             justifyContent="center"
             fontSize="xm"
           >
-            <p>Общее кол-во: {totalTodos}</p>
-            <p>Кол-во выполненных: {completedTodos}</p>
+            <Box as="p">Общее кол-во: {totalTodos}</Box>
+            <Box as="p">Кол-во выполненных: {completedTodos}</Box>
           </Box>
         </Box>
+        {isModalShow && <Modal></Modal>}
       </Box>
     );
   }
