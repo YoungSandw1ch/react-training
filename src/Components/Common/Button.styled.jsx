@@ -47,6 +47,12 @@ export const Button = styled.button(
         width: 'button',
         height: 'button',
       },
+      buttonClose: {
+        borderRadius: 'round',
+        width: 'button',
+        height: 'button',
+        backgroundColor: 'darkRed',
+      },
     },
   })
 );

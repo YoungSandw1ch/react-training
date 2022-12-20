@@ -1,5 +1,16 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+  background-color: #e4ab7e;
+  border: ${({ theme }) => theme.borders.normal};
+  border-radius: ${({ theme }) => theme.radii.normal};
+  padding-left: ${({ theme }) => theme.space[3]}px;
+  padding-right: ${({ theme }) => theme.space[3]}px;
+  padding-top: ${({ theme }) => theme.space[2]}px;
+  padding-bottom: ${({ theme }) => theme.space[2]}px;
+  margin-bottom: ${({ theme }) => theme.space[4]}px;
+`;
+
 export const Label = styled.label`
   display: block;
   text-align: center;

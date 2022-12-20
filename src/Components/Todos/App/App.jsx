@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Box } from '../../Common/Box.styled';
+import { Box } from 'Components/Common';
 import { TodoList } from '../TodoList';
 import { TodoForm } from '../Form';
 import { Filter } from '../Filter';
 import { Modal } from 'Components/Common/Modal';
 import { Header, Logo, AddButton, FilterButton } from './App.styled';
+import { CloseButton } from './App.styled';
 import todos from 'data/todos.json';
 
 export class App extends Component {
@@ -16,6 +17,7 @@ export class App extends Component {
       notFulfilled: true,
     },
     isModalShow: false,
+    isFilterShow: false,
   };
 
   componentDidMount() {
@@ -26,6 +28,9 @@ export class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.todos !== prevState.todos) {
       localStorage.setItem('todos', JSON.stringify(this.state.todos));
+    }
+    if (this.state.todos !== prevState.todos && prevState.isModalShow) {
+      this.toggleModal();
     }
   }
 
@@ -91,8 +96,20 @@ export class App extends Component {
     this.setState(({ isModalShow }) => ({ isModalShow: !isModalShow }));
   };
 
+  toggleFilter = () => {
+    this.setState(({ isFilterShow }) => ({ isFilterShow: !isFilterShow }));
+  };
+
   render() {
-    const { todos, filter, isModalShow } = this.state;
+    const { todos, filter, isModalShow, isFilterShow } = this.state;
+    const {
+      toggleModal,
+      toggleFilter,
+      formSubmit,
+      changeFilter,
+      deleteTodo,
+      toggleCompleted,
+    } = this;
     const totalTodos = todos.length;
     const completedTodos = this.countCompletedTodos(todos);
     const filteredTodo = this.createFilterTodos(todos, filter);
@@ -108,21 +125,28 @@ export class App extends Component {
         >
           <Header>
             <Logo>TODOS</Logo>
-            <AddButton type="button" onClick={this.toggleModal}>
+            <AddButton type="button" onClick={toggleModal}>
               Add
             </AddButton>
-            <FilterButton type="button">Search</FilterButton>
+            <FilterButton type="button" onClick={toggleFilter}>
+              Search
+            </FilterButton>
           </Header>
+
           {isModalShow && (
-            <Modal>
-              <TodoForm onSubmit={this.formSubmit} />
+            <Modal onClose={toggleModal}>
+              <CloseButton type="button" onClick={toggleModal} mb={3} ml="auto">
+                x
+              </CloseButton>
+              <TodoForm onSubmit={formSubmit} />
             </Modal>
           )}
-          <Filter onChange={this.changeFilter} filter={filter} />
+
+          {isFilterShow && <Filter onChange={changeFilter} filter={filter} />}
           <TodoList
             todos={filteredTodo}
-            deleteTodo={this.deleteTodo}
-            onToggleCompleted={this.toggleCompleted}
+            deleteTodo={deleteTodo}
+            onToggleCompleted={toggleCompleted}
           />
           <Box
             mb={3}
