@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Box } from '../Common/Box.styled';
-import { TodoList } from './TodoList';
-import { TodoForm } from './Form';
-import { Filter } from './Filter';
+import { Box } from '../../Common/Box.styled';
+import { TodoList } from '../TodoList';
+import { TodoForm } from '../Form';
+import { Filter } from '../Filter';
 import { Modal } from 'Components/Common/Modal';
+import { Header, Logo, AddButton, FilterButton } from './App.styled';
 import todos from 'data/todos.json';
 
 export class App extends Component {
@@ -86,6 +87,10 @@ export class App extends Component {
     );
   };
 
+  toggleModal = () => {
+    this.setState(({ isModalShow }) => ({ isModalShow: !isModalShow }));
+  };
+
   render() {
     const { todos, filter, isModalShow } = this.state;
     const totalTodos = todos.length;
@@ -99,10 +104,20 @@ export class App extends Component {
           border="normal"
           borderRadius="normal"
           backgroundColor="lightYellow"
-          px={3}
-          py={4}
+          p={3}
         >
-          <TodoForm onSubmit={this.formSubmit} />
+          <Header>
+            <Logo>TODOS</Logo>
+            <AddButton type="button" onClick={this.toggleModal}>
+              Add
+            </AddButton>
+            <FilterButton type="button">Search</FilterButton>
+          </Header>
+          {isModalShow && (
+            <Modal>
+              <TodoForm onSubmit={this.formSubmit} />
+            </Modal>
+          )}
           <Filter onChange={this.changeFilter} filter={filter} />
           <TodoList
             todos={filteredTodo}
@@ -120,7 +135,6 @@ export class App extends Component {
             <Box as="p">Кол-во выполненных: {completedTodos}</Box>
           </Box>
         </Box>
-        {isModalShow && <Modal></Modal>}
       </Box>
     );
   }
