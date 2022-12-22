@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 import { Button } from 'Components/Common';
+import { IconButton } from 'Components/Common/IconButton';
 
 export const Header = styled.div`
   display: flex;
+  align-items: center;
   padding: ${({ theme }) => theme.space[3]}px;
 `;
 
 export const Logo = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.ms};
+  font-size: ${({ theme }) => theme.fontSizes.l};
   font-weight: ${({ theme }) => theme.fontWeights.bold};
   letter-spacing: 3px;
 
@@ -17,7 +19,9 @@ export const Logo = styled.p`
   flex-grow: 1;
 `;
 
-export const AddButton = styled.button``;
+export const AddButton = styled(IconButton)`
+  margin-right: 15px;
+`;
 
 export const FilterButton = styled.button``;
 

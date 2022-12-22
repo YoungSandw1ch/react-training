@@ -4,8 +4,11 @@ import { TodoList } from '../TodoList';
 import { TodoForm } from '../Form';
 import { Filter } from '../Filter';
 import { Modal } from 'Components/Common/Modal';
-import { Header, Logo, AddButton, FilterButton } from './App.styled';
+import { Header, Logo, AddButton } from './App.styled';
 import { CloseButton } from './App.styled';
+import { IconButton } from 'Components/Common/IconButton';
+import { ReactComponent as AddIcon } from 'icons/todo-add.svg';
+import { ReactComponent as FilterIcon } from 'icons/todo-search.svg';
 import todos from 'data/todos.json';
 
 export class App extends Component {
@@ -125,12 +128,16 @@ export class App extends Component {
         >
           <Header>
             <Logo>TODOS</Logo>
-            <AddButton type="button" onClick={toggleModal}>
-              Add
+            <AddButton onClick={toggleModal} aria-label="add todos">
+              <AddIcon width="40" height="40" />
             </AddButton>
-            <FilterButton type="button" onClick={toggleFilter}>
-              Search
-            </FilterButton>
+            <IconButton
+              type="button"
+              onClick={toggleFilter}
+              aria-label="search todo"
+            >
+              <FilterIcon width="40" height="40" />
+            </IconButton>
           </Header>
 
           {isModalShow && (
