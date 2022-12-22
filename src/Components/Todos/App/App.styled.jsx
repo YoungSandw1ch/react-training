@@ -23,8 +23,6 @@ export const AddButton = styled(IconButton)`
   margin-right: 15px;
 `;
 
-export const FilterButton = styled.button``;
-
 export const CloseButton = styled(Button)`
   width: 25px;
   height: 25px;

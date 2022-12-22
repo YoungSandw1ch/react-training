@@ -12,7 +12,7 @@ const initialValues = { text: '' };
 
 export const TodoForm = ({ onSubmit }) => {
   const handleSubmit = ({ text }, { resetForm }) => {
-    console.log('text: ', text);
+    // console.log('text: ', text);
     if (!text) return;
 
     const todo = {

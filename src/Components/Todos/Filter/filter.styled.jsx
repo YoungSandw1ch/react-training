@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
+  position: sticky;
   background-color: #e4ab7e;
   border: ${({ theme }) => theme.borders.normal};
   border-radius: ${({ theme }) => theme.radii.normal};

@@ -9,7 +9,10 @@ import { CloseButton } from './App.styled';
 import { IconButton } from 'Components/Common/IconButton';
 import { ReactComponent as AddIcon } from 'icons/todo-add.svg';
 import { ReactComponent as FilterIcon } from 'icons/todo-search.svg';
+import { CSSTransition } from 'react-transition-group';
 import todos from 'data/todos.json';
+import styles from 'css/slideIn.module.css';
+import scaleIn from 'css/scaleIn.module.css';
 
 export class App extends Component {
   state = {
@@ -58,7 +61,7 @@ export class App extends Component {
   };
 
   formSubmit = todo => {
-    console.log('todo: ', todo);
+    // console.log('todo: ', todo);
     this.setState(prevState => ({ todos: [...prevState.todos, todo] }));
   };
 
@@ -140,16 +143,29 @@ export class App extends Component {
             </IconButton>
           </Header>
 
-          {isModalShow && (
+          <CSSTransition
+            in={isModalShow}
+            timeout={250}
+            classNames={scaleIn}
+            unmountOnExit
+          >
             <Modal onClose={toggleModal}>
               <CloseButton type="button" onClick={toggleModal} mb={3} ml="auto">
                 x
               </CloseButton>
               <TodoForm onSubmit={formSubmit} />
             </Modal>
-          )}
+          </CSSTransition>
 
-          {isFilterShow && <Filter onChange={changeFilter} filter={filter} />}
+          <CSSTransition
+            in={isFilterShow}
+            timeout={250}
+            classNames={styles}
+            unmountOnExit
+          >
+            <Filter onChange={changeFilter} filter={filter} />
+          </CSSTransition>
+
           <TodoList
             todos={filteredTodo}
             deleteTodo={deleteTodo}
