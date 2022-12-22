@@ -1,6 +1,8 @@
 import styles from '../TodoList.module.css';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { IconButton } from 'Components/Common/IconButton';
+import { ReactComponent as DeleteIcon } from 'icons/delete.svg';
 
 export const Todo = ({ completed, text, deleteTodo }) => {
   return (
@@ -18,9 +20,13 @@ export const Todo = ({ completed, text, deleteTodo }) => {
       >
         {text}
       </p>
-      <button onClick={deleteTodo} className={styles.todoList__button}>
-        X
-      </button>
+      <IconButton
+        onClick={deleteTodo}
+        className={styles.todoList__button}
+        aria-label="remove todo"
+      >
+        <DeleteIcon width="25" height="25" />
+      </IconButton>
     </>
   );
 };
