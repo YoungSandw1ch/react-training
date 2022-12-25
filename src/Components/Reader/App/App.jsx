@@ -5,7 +5,7 @@ import publication from 'data/publications.json';
 export const App = () => {
   return (
     <Box>
-      <Reader item={publication} />
+      <Reader items={publication} />
     </Box>
   );
 };

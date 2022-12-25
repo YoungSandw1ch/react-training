@@ -3,34 +3,39 @@ import { Box } from 'Components/Common';
 
 export class Reader extends PureComponent {
   state = {
-    publicationIndex: 0,
+    index: 0,
   };
 
-  handleBtnClick = () => {};
+  handleBtnClick = value => {
+    this.setState(pS => ({ index: pS.index + value }));
+  };
 
   render() {
+    const { index } = this.state;
+    const currentIndex = index + 1;
+    const { items } = this.props;
+    const itemsLength = items.length;
+    const currentItem = items[index];
+    const { title, text } = currentItem;
+
     return (
       <Box>
         <section>
-          <button type="button" onClick={this.handleBtnClick}>
+          <button type="button" onClick={() => this.handleBtnClick(-1)}>
             Назад
           </button>
-          <button type="button" onClick={this.handleBtnClick}>
+          <button type="button" onClick={() => this.handleBtnClick(1)}>
             Вперед
           </button>
         </section>
 
-        <p>1/10</p>
+        <p>
+          {currentIndex}/{itemsLength}
+        </p>
 
         <article>
-          <h2>Lorem ipsum dolor sit amet</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus,
-            molestiae dolore ipsa sed similique necessitatibus. Aut qui porro
-            quibusdam esse libero est eius, repellendus unde nihil, sequi
-            voluptate eaque officiis aliquam impedit laborum adipisci cumque
-            sit.
-          </p>
+          <h2>{title}</h2>
+          <p>{text}</p>
         </article>
       </Box>
     );
