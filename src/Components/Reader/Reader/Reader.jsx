@@ -3,11 +3,27 @@ import { Box } from 'Components/Common';
 import { Controls } from 'Components/Reader/Controls';
 import { Progress } from 'Components/Reader/Progress';
 import { Publication } from 'Components/Reader/Publication';
+// import { TransitionGroup } from 'react-transition-group';
 
 export class Reader extends PureComponent {
   state = {
     index: 0,
   };
+
+  componentDidMount() {
+    // console.log('mount');
+    const savedIndex = Number(localStorage.getItem('currentPublication'));
+    if (savedIndex) {
+      this.setState({ index: savedIndex });
+    }
+  }
+
+  componentDidUpdate(_, pS) {
+    // console.log('update');
+    if (this.state.index !== pS.index) {
+      localStorage.setItem('currentPublication', this.state.index);
+    }
+  }
 
   handleBtnClick = value => {
     this.setState(pS => ({ index: pS.index + value }));
@@ -24,14 +40,14 @@ export class Reader extends PureComponent {
     const isLast = index === itemsLength - 1;
 
     return (
-      <Box>
+      <Box width="card" mx="auto" p={4}>
         <Controls
           onClick={this.handleBtnClick}
           prevBtnDisabled={isFist}
           nextBtnDisabled={isLast}
         />
-        <Progress currentPage={currentIndex} totalPages={itemsLength} />
         <Publication title={title} text={text} />
+        <Progress currentPage={currentIndex} totalPages={itemsLength} />
       </Box>
     );
   }

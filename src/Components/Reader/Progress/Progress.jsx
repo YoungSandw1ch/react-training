@@ -3,8 +3,8 @@ import { Box } from 'Components/Common';
 
 export const Progress = ({ currentPage, totalPages }) => {
   return (
-    <Box as="p">
-      {currentPage}/{totalPages}
+    <Box as="p" fontSize="xm" textAlign="center">
+      {currentPage} / {totalPages}
     </Box>
   );
 };

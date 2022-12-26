@@ -4,7 +4,7 @@ import { ControlButton } from './Controls.styled';
 
 export const Controls = ({ onClick, prevBtnDisabled, nextBtnDisabled }) => {
   return (
-    <Box as="section">
+    <Box as="section" mb={4} display="flex" justifyContent="center">
       <ControlButton
         type="button"
         disabled={prevBtnDisabled}

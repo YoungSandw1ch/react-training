@@ -4,7 +4,7 @@ import { Title, Text } from './Publication.styled';
 
 export const Publication = ({ title, text }) => {
   return (
-    <Box as="article">
+    <Box as="article" mb={4}>
       <Title>{title}</Title>
       <Text>{text}</Text>
     </Box>

@@ -4,7 +4,7 @@ import publication from 'data/publications.json';
 
 export const App = () => {
   return (
-    <Box>
+    <Box mx="auto" width="container" px="15px" py="50px">
       <Reader items={publication} />
     </Box>
   );
