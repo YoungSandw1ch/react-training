@@ -3,7 +3,7 @@ import { Box } from 'Components/Common';
 import { Controls } from 'Components/Reader/Controls';
 import { Progress } from 'Components/Reader/Progress';
 import { Publication } from 'Components/Reader/Publication';
-// import { TransitionGroup } from 'react-transition-group';
+// import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 export class Reader extends PureComponent {
   state = {
@@ -46,7 +46,11 @@ export class Reader extends PureComponent {
           prevBtnDisabled={isFist}
           nextBtnDisabled={isLast}
         />
+        {/* <TransitionGroup>
+          <CSSTransition key={title} timeout={250}> */}
         <Publication title={title} text={text} />
+        {/* </CSSTransition>
+        </TransitionGroup> */}
         <Progress currentPage={currentIndex} totalPages={itemsLength} />
       </Box>
     );

@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types';
-import { Box } from 'Components/Common';
-import { Title, Text } from './Publication.styled';
+import { Title, Text, Article, Wrapper } from './Publication.styled';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 export const Publication = ({ title, text }) => {
   return (
-    <Box as="article" mb={4}>
-      <Title>{title}</Title>
-      <Text>{text}</Text>
-    </Box>
+    <TransitionGroup component={Wrapper}>
+      <CSSTransition key={title} timeout={300} classNames="swiper">
+        <Article>
+          <Title>{title}</Title>
+          <Text>{text}</Text>
+        </Article>
+      </CSSTransition>
+    </TransitionGroup>
   );
 };
 
