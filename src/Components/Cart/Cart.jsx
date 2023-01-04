@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from 'Components/Common/Box.styled';
 import { CartForm } from './CartForm/CartForm';
 import { Loader } from './Loader/Loader';
@@ -7,8 +7,8 @@ import { CartList } from './CartList/Cartlist';
 import { TotalAmount } from './TotalAmount/TotalAmount';
 
 export const Cart = ({ initialState }) => {
-  const [items, setItems] = useState(initialState);
-  const [isLoding] = useState(false);
+  const [items, setItems] = useState([]);
+  const [isLoding, setIsLoading] = useState(false);
 
   const handleChangeCount = (id, step) => {
     setItems(prev =>
@@ -27,6 +27,18 @@ export const Cart = ({ initialState }) => {
     setItems(prev => prev.filter(item => item.id !== id));
 
   const handleSubmit = item => setItems(prev => [...prev, item]);
+
+  useEffect(() => {
+    setIsLoading(true);
+    // setTimeout(() => {
+    setItems(JSON.parse(localStorage.getItem('card')));
+    setIsLoading(false);
+    // }, 2000);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('card', JSON.stringify(items));
+  }, [items]);
 
   return (
     <Box
