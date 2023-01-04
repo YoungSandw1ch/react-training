@@ -5,9 +5,10 @@ import { Counter } from '../Counter';
 
 export const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
   const { price, count, name, id, guarantee } = item;
-  const amount = ((guarantee ? price * 0.01 + price : price) * count).toFixed(
+  const amount = +((guarantee ? price * 0.01 + price : price) * count).toFixed(
     1
   );
+  console.log(amount);
   const removeItem = () => onRemoveItem(id);
 
   return (
