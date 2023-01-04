@@ -13,25 +13,47 @@ export const Article = styled.article`
   width: 100%;
   height: 100%;
 
-  &.swiper-enter {
+  &.swiper-right-enter {
     opacity: 0;
     transform: translateX(100%);
   }
 
-  &.swiper-enter-active {
+  &.swiper-right-enter-active {
     opacity: 1;
     transform: translateX(0);
     transition: all 300ms ease-in-out;
   }
 
-  &.swiper-exit {
+  &.swiper-right-exit {
     opacity: 1;
     transform: translateX(0);
   }
 
-  &.swiper-exit-active {
+  &.swiper-right-exit-active {
     opacity: 0;
     transform: translateX(-100%);
+    transition: all 300ms ease-in-out;
+  }
+
+  &.swiper-left-enter {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  &.swiper-left-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: all 300ms ease-in-out;
+  }
+
+  &.swiper-left-exit {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  &.swiper-left-exit-active {
+    opacity: 0;
+    transform: translateX(100%);
     transition: all 300ms ease-in-out;
   }
 `;

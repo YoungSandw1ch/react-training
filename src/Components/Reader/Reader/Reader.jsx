@@ -3,11 +3,11 @@ import { Box } from 'Components/Common';
 import { Controls } from 'Components/Reader/Controls';
 import { Progress } from 'Components/Reader/Progress';
 import { Publication } from 'Components/Reader/Publication';
-// import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 export class Reader extends PureComponent {
   state = {
     index: 0,
+    swiperSide: 0,
   };
 
   componentDidMount() {
@@ -27,10 +27,11 @@ export class Reader extends PureComponent {
 
   handleBtnClick = value => {
     this.setState(pS => ({ index: pS.index + value }));
+    this.setState({ swiperSide: value });
   };
 
   render() {
-    const { index } = this.state;
+    const { index, swiperSide } = this.state;
     const { items } = this.props;
     const currentItem = items[index];
     const { title, text } = currentItem;
@@ -46,11 +47,7 @@ export class Reader extends PureComponent {
           prevBtnDisabled={isFist}
           nextBtnDisabled={isLast}
         />
-        {/* <TransitionGroup>
-          <CSSTransition key={title} timeout={250}> */}
-        <Publication title={title} text={text} />
-        {/* </CSSTransition>
-        </TransitionGroup> */}
+        <Publication title={title} text={text} isRigthSwipe={swiperSide} />
         <Progress currentPage={currentIndex} totalPages={itemsLength} />
       </Box>
     );
