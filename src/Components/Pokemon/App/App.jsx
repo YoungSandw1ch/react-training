@@ -15,12 +15,13 @@ export class App extends PureComponent {
 
   render() {
     const { pokemonName } = this.state;
-
     return (
-      <Box mx="auto" width="container" p={4}>
-        <PokemonForm onSubmit={this.handleFormSubmit} />
-        <PokemonInfo pokemonName={pokemonName} />
-        <ToastContainer />
+      <Box p={4} width="container" mx="auto">
+        <Box width="three" p={2}>
+          <PokemonForm onSubmit={this.handleFormSubmit} />
+          <PokemonInfo pokemonName={pokemonName} />
+          <ToastContainer />
+        </Box>
       </Box>
     );
   }

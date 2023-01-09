@@ -83,6 +83,8 @@ export const theme = {
     card: '650px',
     item: '32px',
     value: '20px',
+    pokemonWidth: '240px',
+    pokemonHeight: '100px',
   },
 
   shadows: {

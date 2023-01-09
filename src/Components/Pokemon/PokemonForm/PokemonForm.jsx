@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
-import { Button, Input, Form } from 'Components/Pokemon/PokemonForm';
+import { Form, Input, Button } from './PokemonForm.styled';
 import { FcSearch } from 'react-icons/fc';
 
 export class PokemonForm extends Component {
@@ -8,29 +8,30 @@ export class PokemonForm extends Component {
     pokemonName: '',
   };
 
-  handleSubmit = e => {
+  handleInputChange = e => {
+    const name = e.target.value.toLowerCase();
+    this.setState({ pokemonName: name });
+  };
+
+  handleFormSubmit = e => {
     e.preventDefault();
 
-    if (this.state.pokemonName.trim() === '') {
-      toast.warn('Введите имя покемона', { autoClose: 2500 });
+    const { pokemonName } = this.state;
+    if (pokemonName.trim() === '') {
+      toast.warn('Введите имя покемона');
       return;
     }
 
-    this.props.onSubmit(this.state.pokemonName);
-    this.setState({ pokemonName: '' });
+    this.props.onSubmit(pokemonName);
     e.currentTarget.reset();
   };
 
-  handleInputChange = e => {
-    this.setState({ pokemonName: e.currentTarget.value.toLowerCase() });
-  };
-
   render() {
-    const { handleSubmit, handleInputChange } = this;
+    const { handleFormSubmit, handleInputChange } = this;
     return (
-      <Form onSubmit={handleSubmit}>
-        <Input type="text" onChange={handleInputChange} />
-        <Button type="submit">
+      <Form onSubmit={handleFormSubmit}>
+        <Input type="text" name="name" onChange={handleInputChange} />
+        <Button>
           <FcSearch />
           Найти
         </Button>

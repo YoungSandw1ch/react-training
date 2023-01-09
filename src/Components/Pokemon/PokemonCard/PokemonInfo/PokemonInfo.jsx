@@ -1,12 +1,14 @@
 import { Component } from 'react';
 import { Box } from 'Components/Common';
 import pokemonAPI from 'services/pokemonAPI';
+import { PokemonDataView } from '../PokemonDataView';
+import { PokemonPendingView } from '../PokemonPendingView';
 
 const STATUS = {
   IDLE: 'idle',
   PENDING: 'pending',
-  REJECTED: 'rejected',
-  RESOLVED: 'resolved',
+  REJECT: 'reject',
+  RESOLVE: 'resolve',
 };
 
 export class PokemonInfo extends Component {
@@ -17,34 +19,34 @@ export class PokemonInfo extends Component {
   };
 
   componentDidUpdate(pProps, pState) {
-    if (pProps.pokemonName === this.props.pokemonName) return;
-
+    const prevName = pProps.pokemonName;
+    const nextName = this.props.pokemonName;
+    if (prevName === nextName) return;
+    const pokemonName = this.props.pokemonName;
+    //перед початком запиту міняемо статус на виконуеться, який зміниться в процесі запиту на виконано або відхилено
     this.setState({ status: STATUS.PENDING });
+
     pokemonAPI
-      .fetchPokemon(this.props.pokemonName)
-      .then(pokemon => this.setState({ pokemon, status: STATUS.RESOLVED }))
-      .catch(error => this.setState({ error, status: STATUS.REJECTED }));
+      .fetchPokemon(pokemonName)
+      .then(pokemon => this.setState({ pokemon, status: STATUS.RESOLVE }))
+      .catch(error => this.setState({ error, status: STATUS.REJECT }));
   }
 
   render() {
-    const { pokemon, status, error } = this.state;
+    const { pokemon, error, status } = this.state;
 
     if (status === STATUS.IDLE) {
-      return <Box>Введите имя покемона</Box>;
+      return <Box>Введите название покемона</Box>;
     }
 
     if (status === STATUS.PENDING) {
-      return <Box>Загружаем...</Box>;
+      return <PokemonPendingView />;
     }
-    if (status === STATUS.REJECTED) {
+    if (status === STATUS.REJECT) {
       return <Box>{error.message}</Box>;
     }
-    if (status === STATUS.RESOLVED) {
-      return (
-        <Box>
-          <p>{pokemon.name}</p>
-        </Box>
-      );
+    if (status === STATUS.RESOLVE) {
+      return <PokemonDataView pokemon={pokemon} />;
     }
   }
 }
