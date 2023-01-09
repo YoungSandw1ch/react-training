@@ -7,7 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 // import { App } from './Components/State/App';
 // import { App } from './Components/Todos/App/App';
 // import { App } from './Components/Reader/App';
-import { App } from './Components/Pokemon/App';
+// import { App } from './Components/Pokemon/App';
+import { App } from './Components/Materials/App';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './constants/thema';
 
