@@ -3,6 +3,7 @@ import { Box } from 'Components/Common';
 import pokemonAPI from 'services/pokemonAPI';
 import { PokemonDataView } from '../PokemonDataView';
 import { PokemonPendingView } from '../PokemonPendingView';
+import { PokemonErrorView } from '../PokemonErrorView';
 
 const STATUS = {
   IDLE: 'idle',
@@ -43,7 +44,7 @@ export class PokemonInfo extends Component {
       return <PokemonPendingView />;
     }
     if (status === STATUS.REJECT) {
-      return <Box>{error.message}</Box>;
+      return <PokemonErrorView error={error} />;
     }
     if (status === STATUS.RESOLVE) {
       return <PokemonDataView pokemon={pokemon} />;

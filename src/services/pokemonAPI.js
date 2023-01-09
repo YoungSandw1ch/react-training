@@ -5,7 +5,7 @@ const fetchPokemon = name => {
     if (response.ok) {
       return response.json();
     }
-    return Promise.reject(new Error(`Покеион с именем "${name}" не найден`));
+    return Promise.reject(new Error(`Покемон с именем "${name}" не найден`));
   });
 };
 

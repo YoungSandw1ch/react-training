@@ -1,5 +1,6 @@
 import pendingImg from 'images/pending-img.png';
 import { Box } from 'Components/Common';
+import { Spinner } from './PokemonPendingView.styled';
 import { PokemonDataView } from 'Components/Pokemon/PokemonCard/PokemonDataView';
 
 export const PokemonPendingView = () => {
@@ -17,7 +18,10 @@ export const PokemonPendingView = () => {
 
   return (
     <>
-      <Box as="p">Загрузка</Box>
+      <Box as="p">
+        <Spinner />
+        Загрузка
+      </Box>
       <PokemonDataView pokemon={pokemon} />
     </>
   );
