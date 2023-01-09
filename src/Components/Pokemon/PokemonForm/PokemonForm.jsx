@@ -23,6 +23,7 @@ export class PokemonForm extends Component {
     }
 
     this.props.onSubmit(pokemonName);
+    this.setState({ pokemonName: '' });
     e.currentTarget.reset();
   };
 

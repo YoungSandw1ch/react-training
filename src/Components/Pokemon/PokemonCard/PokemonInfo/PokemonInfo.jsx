@@ -39,7 +39,6 @@ export class PokemonInfo extends Component {
     if (status === STATUS.IDLE) {
       return <Box>Введите название покемона</Box>;
     }
-
     if (status === STATUS.PENDING) {
       return <PokemonPendingView />;
     }
