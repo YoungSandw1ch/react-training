@@ -13,7 +13,7 @@ export class App extends Component {
 
   async componentDidMount() {
     const materials = await API.GetMaterials();
-    console.log('get materials: ', materials);
+    // console.log('get materials: ', materials);
     this.setState({ materials });
   }
 

@@ -6,6 +6,9 @@ export const List = styled.ul`
 `;
 
 export const Item = styled.li`
+  display: flex;
+  justify-content: space-between;
+
   padding: ${({ theme }) => theme.space[3]}px;
 
   border: 1px solid ${({ theme }) => theme.colors.grey};
