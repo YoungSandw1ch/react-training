@@ -1,5 +1,19 @@
 import styled from 'styled-components';
 
-export const List = styled.ul``;
+export const List = styled.ul`
+  width: ${({ theme }) => theme.sizes.five};
+  margin-top: ${({ theme }) => theme.space[4]}px;
+`;
 
-export const Item = styled.li``;
+export const Item = styled.li`
+  padding: ${({ theme }) => theme.space[3]}px;
+
+  border: 1px solid ${({ theme }) => theme.colors.grey};
+  border-radius: ${({ theme }) => theme.radii.normal};
+
+  background-color: ${({ theme }) => theme.colors.white};
+
+  &:not(:last-child) {
+    margin-bottom: ${({ theme }) => theme.space[3]}px;
+  }
+`;

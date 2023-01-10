@@ -17,9 +17,14 @@ export class App extends Component {
     this.setState({ materials });
   }
 
+  async componentDidUpdate(pProps, pState) {
+    // if (pState.materials === this.state.materials) return;
+  }
+
   addMaterial = material => {
     console.log('material: ', material);
     API.AddMaterial(material);
+    this.setState({ materials: [...this.state.materials, material] });
   };
 
   render() {

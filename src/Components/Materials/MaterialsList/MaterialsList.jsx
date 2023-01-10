@@ -7,7 +7,7 @@ export const MaterialsList = ({ materials }) => {
     <List>
       {materials.map(material => (
         <Item key={material.id}>
-          <MaterialItem material={material} />
+          <MaterialItem key={material.id} material={material} />
         </Item>
       ))}
     </List>
