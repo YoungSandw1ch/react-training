@@ -1,7 +1,7 @@
 import { MaterialItem } from '../MaterialItem';
 import { List, Item } from './MaterialsList.styled';
 
-export const MaterialsList = ({ materials, onDelete }) => {
+export const MaterialsList = ({ materials, onDelete, onEdit }) => {
   return (
     <List>
       {materials.map(material => (
@@ -10,6 +10,7 @@ export const MaterialsList = ({ materials, onDelete }) => {
             key={material.id}
             material={material}
             onDelete={onDelete}
+            onEdit={onEdit}
           />
         </Item>
       ))}

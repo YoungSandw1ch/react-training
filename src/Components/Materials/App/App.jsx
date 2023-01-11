@@ -6,19 +6,19 @@ import { Box } from 'Components/Common';
 import * as API from 'services/materialAPI';
 import { MaterialsList } from '../MaterialsList';
 
-const status = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  REJECT: 'reject',
-  RESOLVE: 'resolve',
-};
+// const status = {
+//   IDLE: 'idle',
+//   PENDING: 'pending',
+//   REJECT: 'reject',
+//   RESOLVE: 'resolve',
+// };
 
 export class App extends Component {
   state = {
     materials: [],
     error: null,
     isLoading: false,
-    status: status.IDLE,
+    // status: status.IDLE,
   };
 
   async componentDidMount() {
@@ -36,6 +36,16 @@ export class App extends Component {
     // if (pState.materials === this.state.materials) return;
   }
 
+  addMaterial = async material => {
+    try {
+      const newMaterial = await API.AddMaterial(material);
+      this.setState({ materials: [...this.state.materials, newMaterial] });
+    } catch (error) {
+      console.log(error.message);
+      this.setState({ error });
+    }
+  };
+
   deleteMaterial = async id => {
     const filterState = mats => mats.filter(mat => mat.id !== id);
     try {
@@ -49,10 +59,17 @@ export class App extends Component {
     }
   };
 
-  addMaterial = async material => {
+  editMaterial = async (id, values) => {
     try {
-      const newMaterial = await API.AddMaterial(material);
-      this.setState({ materials: [...this.state.materials, newMaterial] });
+      console.log(id, values);
+      const changedMaterial = await API.EditMaterial(id, values);
+      console.log('changedMaterial: ', changedMaterial);
+
+      const changeMaterials = mats =>
+        mats.map(mat => (mat.id !== id ? mat : changedMaterial));
+
+      this.setState(state => ({ materials: changeMaterials(state.materials) }));
+      console.log(this.state.materials);
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
@@ -60,7 +77,7 @@ export class App extends Component {
   };
 
   render() {
-    const { addMaterial, deleteMaterial } = this;
+    const { addMaterial, deleteMaterial, editMaterial } = this;
     const { materials } = this.state;
 
     return (
@@ -68,7 +85,11 @@ export class App extends Component {
         <GlobalStyle />
         <Box mx="auto" width="container" p={4}>
           <CreateMaterialForm onSubmit={addMaterial} />
-          <MaterialsList materials={materials} onDelete={deleteMaterial} />
+          <MaterialsList
+            materials={materials}
+            onDelete={deleteMaterial}
+            onEdit={editMaterial}
+          />
         </Box>
       </Layout>
     );

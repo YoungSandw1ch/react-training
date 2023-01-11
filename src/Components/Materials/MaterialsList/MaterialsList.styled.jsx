@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const List = styled.ul`
+  position: relative;
   width: ${({ theme }) => theme.sizes.five};
   margin-top: ${({ theme }) => theme.space[4]}px;
 `;
@@ -8,6 +9,7 @@ export const List = styled.ul`
 export const Item = styled.li`
   display: flex;
   justify-content: space-between;
+  height: 80px;
 
   padding: ${({ theme }) => theme.space[3]}px;
 
