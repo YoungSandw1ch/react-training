@@ -6,16 +6,30 @@ import { Box } from 'Components/Common';
 import * as API from 'services/materialAPI';
 import { MaterialsList } from '../MaterialsList';
 
+const status = {
+  IDLE: 'idle',
+  PENDING: 'pending',
+  REJECT: 'reject',
+  RESOLVE: 'resolve',
+};
+
 export class App extends Component {
   state = {
     materials: [],
     error: null,
     isLoading: false,
+    status: status.IDLE,
   };
 
   async componentDidMount() {
-    const materials = await API.GetMaterials();
-    this.setState({ materials });
+    try {
+      this.setState({ isLoading: true });
+      const materials = await API.GetMaterials();
+      this.setState({ materials });
+    } catch (error) {
+      console.log(error.message);
+      this.setState({ error });
+    }
   }
 
   async componentDidUpdate(pProps, pState) {
