@@ -8,8 +8,8 @@ import {
 import { GrEdit } from 'react-icons/gr';
 import { TiDelete } from 'react-icons/ti';
 
-export const MaterialItem = ({ material }) => {
-  const { link, title } = material;
+export const MaterialItem = ({ material, onDelete }) => {
+  const { link, title, id } = material;
 
   return (
     <>
@@ -18,10 +18,10 @@ export const MaterialItem = ({ material }) => {
         <LinkText>{title}</LinkText>
       </Box>
       <Box>
-        <DeleteButton type="button" onClick={'ss'}>
+        <DeleteButton type="button" onClick={() => onDelete(id)}>
           <TiDelete />
         </DeleteButton>
-        <EditButton type="button" onClick={'ss'}>
+        <EditButton type="button" onClick={() => onDelete(id)}>
           <GrEdit />
         </EditButton>
       </Box>

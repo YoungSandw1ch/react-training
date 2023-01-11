@@ -9,11 +9,12 @@ import { MaterialsList } from '../MaterialsList';
 export class App extends Component {
   state = {
     materials: [],
+    error: null,
+    isLoading: false,
   };
 
   async componentDidMount() {
     const materials = await API.GetMaterials();
-    // console.log('get materials: ', materials);
     this.setState({ materials });
   }
 
@@ -21,14 +22,31 @@ export class App extends Component {
     // if (pState.materials === this.state.materials) return;
   }
 
-  addMaterial = material => {
-    console.log('material: ', material);
-    API.AddMaterial(material);
-    this.setState({ materials: [...this.state.materials, material] });
+  deleteMaterial = async id => {
+    const filterState = mats => mats.filter(mat => mat.id !== id);
+    try {
+      await API.DeleteMaterial(id);
+      this.setState(state => ({
+        materials: filterState(state.materials),
+      }));
+    } catch (error) {
+      console.log(error.message);
+      this.setState({ error });
+    }
+  };
+
+  addMaterial = async material => {
+    try {
+      const newMaterial = await API.AddMaterial(material);
+      this.setState({ materials: [...this.state.materials, newMaterial] });
+    } catch (error) {
+      console.log(error.message);
+      this.setState({ error });
+    }
   };
 
   render() {
-    const { addMaterial } = this;
+    const { addMaterial, deleteMaterial } = this;
     const { materials } = this.state;
 
     return (
@@ -36,7 +54,7 @@ export class App extends Component {
         <GlobalStyle />
         <Box mx="auto" width="container" p={4}>
           <CreateMaterialForm onSubmit={addMaterial} />
-          <MaterialsList materials={materials} />
+          <MaterialsList materials={materials} onDelete={deleteMaterial} />
         </Box>
       </Layout>
     );
