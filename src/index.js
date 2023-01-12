@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import 'modern-normalize/modern-normalize.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 // import { App } from './Components/App';
 // import { App } from './Components/State/App';
 // import { App } from './Components/Todos/App/App';

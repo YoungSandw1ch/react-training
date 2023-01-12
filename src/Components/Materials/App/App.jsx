@@ -1,6 +1,7 @@
 import { Layout } from '../utils/Layout';
 import { GlobalStyle } from '../utils/GlobalStyle';
 import { Component } from 'react';
+import { SkeletonTheme } from 'react-loading-skeleton';
 import { CreateMaterialForm } from '../CreateMaterialForm';
 import { Box } from 'Components/Common';
 import * as API from 'services/materialAPI';
@@ -29,6 +30,8 @@ export class App extends Component {
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
     }
   }
 
@@ -38,17 +41,21 @@ export class App extends Component {
 
   addMaterial = async material => {
     try {
+      this.setState({ isLoading: true });
       const newMaterial = await API.AddMaterial(material);
       this.setState({ materials: [...this.state.materials, newMaterial] });
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
   deleteMaterial = async id => {
     const filterState = mats => mats.filter(mat => mat.id !== id);
     try {
+      this.setState({ isLoading: true });
       await API.DeleteMaterial(id);
       this.setState(state => ({
         materials: filterState(state.materials),
@@ -56,12 +63,16 @@ export class App extends Component {
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
   editMaterial = async (id, values) => {
     try {
-      console.log(id, values);
+      this.setState({ isLoading: true });
+      // console.log(id, values);
+
       const changedMaterial = await API.EditMaterial(id, values);
       console.log('changedMaterial: ', changedMaterial);
 
@@ -73,24 +84,36 @@ export class App extends Component {
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
+    } finally {
+      this.setState({ isLoading: false });
     }
   };
 
   render() {
     const { addMaterial, deleteMaterial, editMaterial } = this;
-    const { materials } = this.state;
+    const { materials, isLoading, error } = this.state;
 
     return (
       <Layout>
         <GlobalStyle />
-        <Box mx="auto" width="container" p={4}>
-          <CreateMaterialForm onSubmit={addMaterial} />
-          <MaterialsList
-            materials={materials}
-            onDelete={deleteMaterial}
-            onEdit={editMaterial}
-          />
-        </Box>
+        <SkeletonTheme color="#313131" highlightColor="#525252">
+          <Box mx="auto" width="container" p={4}>
+            <CreateMaterialForm onSubmit={addMaterial} />
+            {/* {isLoading && <Box>Loading...</Box>} */}
+            {!error ? (
+              <MaterialsList
+                isLoading={isLoading}
+                materials={materials}
+                onDelete={deleteMaterial}
+                onEdit={editMaterial}
+              />
+            ) : (
+              <Box as="p">
+                Опачки! Что то пошло не так , попробуйте перегрузить страницу.
+              </Box>
+            )}
+          </Box>
+        </SkeletonTheme>
       </Layout>
     );
   }

@@ -12,8 +12,8 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 
 export const MaterialItemEditModal = ({ material, onEdit, closeModal }) => {
   const { link, title, id } = material;
-  const handleSubmit = (values, actions) => {
-    onEdit(id, values);
+  const handleSubmit = async (values, actions) => {
+    await onEdit(id, values);
     actions.resetForm();
     closeModal(true);
   };

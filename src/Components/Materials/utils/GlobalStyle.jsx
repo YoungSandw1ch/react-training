@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 import 'modern-normalize/modern-normalize.css';
+import 'react-loading-skeleton/dist/skeleton.css';
 
 export const GlobalStyle = createGlobalStyle`
   body {

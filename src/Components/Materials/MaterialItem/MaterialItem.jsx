@@ -8,6 +8,7 @@ import {
 import { GrEdit } from 'react-icons/gr';
 import { TiDelete } from 'react-icons/ti';
 import { Component } from 'react';
+import Skeleton from 'react-loading-skeleton';
 import { MaterialItemEditModal } from '../MaterialItemEditModal';
 
 export class MaterialItem extends Component {
@@ -30,10 +31,21 @@ export class MaterialItem extends Component {
 
   render() {
     const { closeModal, openModal } = this;
-    const { material, onDelete, onEdit } = this.props;
+    const { material, onDelete, onEdit, isLoading } = this.props;
     const { link, title, id } = material;
 
-    if (id === this.state.id) {
+    if (isLoading && id === this.state.id) {
+      return (
+        <>
+          <Box display="flex" flexDirection="column" gridGap={3}>
+            <Skeleton height={16} width={400} />
+            <Skeleton height={16} width={400} />
+          </Box>
+        </>
+      );
+    }
+
+    if (!isLoading && id === this.state.id) {
       return (
         <MaterialItemEditModal
           material={material}
