@@ -8,8 +8,9 @@ import {
 import { GrEdit } from 'react-icons/gr';
 import { TiDelete } from 'react-icons/ti';
 import { Component } from 'react';
-import Skeleton from 'react-loading-skeleton';
 import { MaterialItemEditModal } from '../MaterialItemEditModal';
+import Skeleton from 'react-loading-skeleton';
+import { SkeletonTextBox, SkeletonButtonBox } from '../SkeletonMaterialsItems';
 
 export class MaterialItem extends Component {
   state = {
@@ -37,10 +38,18 @@ export class MaterialItem extends Component {
     if (isLoading && id === this.state.id) {
       return (
         <>
-          <Box display="flex" flexDirection="column" gridGap={3}>
-            <Skeleton height={16} width={400} />
-            <Skeleton height={16} width={400} />
-          </Box>
+          <SkeletonTextBox>
+            <Skeleton count={2} height={16} style={{ marginBottom: '8px' }} />
+          </SkeletonTextBox>
+          <SkeletonButtonBox>
+            <Skeleton
+              count={2}
+              circle
+              width={20}
+              height={20}
+              style={{ marginBottom: '8px' }}
+            />
+          </SkeletonButtonBox>
         </>
       );
     }

@@ -6,6 +6,7 @@ import { CreateMaterialForm } from '../CreateMaterialForm';
 import { Box } from 'Components/Common';
 import * as API from 'services/materialAPI';
 import { MaterialsList } from '../MaterialsList';
+import { SkeletonItems } from '../SkeletonMaterialsItems';
 
 // const status = {
 //   IDLE: 'idle',
@@ -19,24 +20,21 @@ export class App extends Component {
     materials: [],
     error: null,
     isLoading: false,
+    isFistLoading: false,
     // status: status.IDLE,
   };
 
   async componentDidMount() {
     try {
-      this.setState({ isLoading: true });
+      this.setState({ isFistLoading: true });
       const materials = await API.GetMaterials();
       this.setState({ materials });
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
     } finally {
-      this.setState({ isLoading: false });
+      this.setState({ isFistLoading: false });
     }
-  }
-
-  async componentDidUpdate(pProps, pState) {
-    // if (pState.materials === this.state.materials) return;
   }
 
   addMaterial = async material => {
@@ -91,7 +89,7 @@ export class App extends Component {
 
   render() {
     const { addMaterial, deleteMaterial, editMaterial } = this;
-    const { materials, isLoading, error } = this.state;
+    const { materials, isLoading, error, isFistLoading } = this.state;
 
     return (
       <Layout>
@@ -99,7 +97,7 @@ export class App extends Component {
         <SkeletonTheme color="#313131" highlightColor="#525252">
           <Box mx="auto" width="container" p={4}>
             <CreateMaterialForm onSubmit={addMaterial} />
-            {/* {isLoading && <Box>Loading...</Box>} */}
+            {isFistLoading && <SkeletonItems items={8} />}
             {!error ? (
               <MaterialsList
                 isLoading={isLoading}

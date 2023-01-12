@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const List = styled.ul`
   position: relative;
   width: ${({ theme }) => theme.sizes.five};
-  margin-top: ${({ theme }) => theme.space[4]}px;
 `;
 
 export const Item = styled.li`

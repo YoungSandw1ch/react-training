@@ -1,5 +1,10 @@
-import { Formik, Field, Form } from 'formik';
-import { AddButton, Label, FieldName } from './CreateMaterialForm.styled';
+import { Formik, Field } from 'formik';
+import {
+  AddButton,
+  Label,
+  FieldName,
+  MaterialForm,
+} from './CreateMaterialForm.styled';
 
 export const CreateMaterialForm = ({ onSubmit }) => {
   const handleSubmit = (values, actions) => {
@@ -10,7 +15,7 @@ export const CreateMaterialForm = ({ onSubmit }) => {
 
   return (
     <Formik initialValues={{ link: '', title: '' }} onSubmit={handleSubmit}>
-      <Form>
+      <MaterialForm>
         <Label>
           <FieldName>Link</FieldName>
           <Field type="text" name="link" placeholder="link" />
@@ -20,7 +25,7 @@ export const CreateMaterialForm = ({ onSubmit }) => {
           <Field type="text" name="title" placeholder="title" />
         </Label>
         <AddButton type="submit">Add</AddButton>
-      </Form>
+      </MaterialForm>
     </Formik>
   );
 };
