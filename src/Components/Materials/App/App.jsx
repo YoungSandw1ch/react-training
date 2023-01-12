@@ -20,33 +20,33 @@ export class App extends Component {
     materials: [],
     error: null,
     isLoading: false,
-    isFistLoading: false,
+    allItemsLoading: false,
     // status: status.IDLE,
   };
 
   async componentDidMount() {
     try {
-      this.setState({ isFistLoading: true });
+      this.setState({ allItemsLoading: true });
       const materials = await API.GetMaterials();
       this.setState({ materials });
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
     } finally {
-      this.setState({ isFistLoading: false });
+      this.setState({ allItemsLoading: false });
     }
   }
 
   addMaterial = async material => {
     try {
-      this.setState({ isLoading: true });
+      this.setState({ allItemsLoading: true });
       const newMaterial = await API.AddMaterial(material);
       this.setState({ materials: [...this.state.materials, newMaterial] });
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
     } finally {
-      this.setState({ isLoading: false });
+      this.setState({ allItemsLoading: false });
     }
   };
 
@@ -89,7 +89,7 @@ export class App extends Component {
 
   render() {
     const { addMaterial, deleteMaterial, editMaterial } = this;
-    const { materials, isLoading, error, isFistLoading } = this.state;
+    const { materials, isLoading, error, allItemsLoading } = this.state;
 
     return (
       <Layout>
@@ -97,15 +97,19 @@ export class App extends Component {
         <SkeletonTheme color="#313131" highlightColor="#525252">
           <Box mx="auto" width="container" p={4}>
             <CreateMaterialForm onSubmit={addMaterial} />
-            {isFistLoading && <SkeletonItems items={8} />}
-            {!error ? (
+
+            {allItemsLoading ? (
+              <SkeletonItems items={8} />
+            ) : (
               <MaterialsList
                 isLoading={isLoading}
                 materials={materials}
                 onDelete={deleteMaterial}
                 onEdit={editMaterial}
               />
-            ) : (
+            )}
+
+            {error && (
               <Box as="p">
                 Опачки! Что то пошло не так , попробуйте перегрузить страницу.
               </Box>

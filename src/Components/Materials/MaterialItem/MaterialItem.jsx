@@ -11,11 +11,22 @@ import { Component } from 'react';
 import { MaterialItemEditModal } from '../MaterialItemEditModal';
 import Skeleton from 'react-loading-skeleton';
 import { SkeletonTextBox, SkeletonButtonBox } from '../SkeletonMaterialsItems';
+import { SkeletonMaterialItem } from '../SkeletonMaterialItem/';
 
 export class MaterialItem extends Component {
   state = {
     isModalOpen: false,
     id: null,
+    isRemoved: false,
+  };
+
+  deleteItem = async materialId => {
+    const { onDelete } = this.props;
+    const { id } = this.props.material;
+
+    this.setState({ isRemoved: true, id: materialId });
+    await onDelete(id);
+    this.setState({ isRemoved: false, id: null });
   };
 
   openModal = id => {
@@ -31,9 +42,14 @@ export class MaterialItem extends Component {
   };
 
   render() {
-    const { closeModal, openModal } = this;
-    const { material, onDelete, onEdit, isLoading } = this.props;
+    const { isRemoved } = this.state;
+    const { closeModal, openModal, deleteItem } = this;
+    const { material, onEdit, isLoading } = this.props;
     const { link, title, id } = material;
+
+    if (isRemoved && id === this.state.id) {
+      return <SkeletonMaterialItem />;
+    }
 
     if (isLoading && id === this.state.id) {
       return (
@@ -72,7 +88,7 @@ export class MaterialItem extends Component {
             <LinkText>{title}</LinkText>
           </Box>
           <Box>
-            <DeleteButton type="button" onClick={() => onDelete(id)}>
+            <DeleteButton type="button" onClick={() => deleteItem(id)}>
               <TiDelete />
             </DeleteButton>
             <EditButton type="button" onClick={() => openModal(id)}>
