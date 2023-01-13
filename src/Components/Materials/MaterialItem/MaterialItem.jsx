@@ -9,8 +9,6 @@ import { GrEdit } from 'react-icons/gr';
 import { TiDelete } from 'react-icons/ti';
 import { Component } from 'react';
 import { MaterialItemEditModal } from '../MaterialItemEditModal';
-import Skeleton from 'react-loading-skeleton';
-import { SkeletonTextBox, SkeletonButtonBox } from '../SkeletonMaterialsItems';
 import { SkeletonMaterialItem } from '../SkeletonMaterialItem/';
 
 export class MaterialItem extends Component {
@@ -52,22 +50,7 @@ export class MaterialItem extends Component {
     }
 
     if (isLoading && id === this.state.id) {
-      return (
-        <>
-          <SkeletonTextBox>
-            <Skeleton count={2} height={16} style={{ marginBottom: '8px' }} />
-          </SkeletonTextBox>
-          <SkeletonButtonBox>
-            <Skeleton
-              count={2}
-              circle
-              width={20}
-              height={20}
-              style={{ marginBottom: '8px' }}
-            />
-          </SkeletonButtonBox>
-        </>
-      );
+      return <SkeletonMaterialItem />;
     }
 
     if (!isLoading && id === this.state.id) {

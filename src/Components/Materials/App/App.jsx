@@ -69,16 +69,11 @@ export class App extends Component {
   editMaterial = async (id, values) => {
     try {
       this.setState({ isLoading: true });
-      // console.log(id, values);
-
       const changedMaterial = await API.EditMaterial(id, values);
-      console.log('changedMaterial: ', changedMaterial);
-
       const changeMaterials = mats =>
         mats.map(mat => (mat.id !== id ? mat : changedMaterial));
 
       this.setState(state => ({ materials: changeMaterials(state.materials) }));
-      console.log(this.state.materials);
     } catch (error) {
       console.log(error.message);
       this.setState({ error });
@@ -98,6 +93,12 @@ export class App extends Component {
           <Box mx="auto" width="container" p={4}>
             <CreateMaterialForm onSubmit={addMaterial} />
 
+            {error && (
+              <Box as="p">
+                Опачки! Что то пошло не так , попробуйте перегрузить страницу.
+              </Box>
+            )}
+
             {allItemsLoading ? (
               <SkeletonItems items={8} />
             ) : (
@@ -107,12 +108,6 @@ export class App extends Component {
                 onDelete={deleteMaterial}
                 onEdit={editMaterial}
               />
-            )}
-
-            {error && (
-              <Box as="p">
-                Опачки! Что то пошло не так , попробуйте перегрузить страницу.
-              </Box>
             )}
           </Box>
         </SkeletonTheme>
