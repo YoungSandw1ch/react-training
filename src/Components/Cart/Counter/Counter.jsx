@@ -1,21 +1,27 @@
 import PropTypes from 'prop-types';
-import { Box, Button } from 'Components/Common';
+import { Box } from 'Components/Common';
+import { CounterBtn } from './Counter.styled';
 
 export const Counter = ({ value, id, onCountChange }) => {
   const increment = () => onCountChange(id, 1);
   const decrement = () => onCountChange(id, -1);
   const zeroColorChange = value ? 'green' : 'red';
+  const isDisabled = value === 1;
   return (
     <Box display="flex" gridColumnGap={3} alignItems="center">
-      <Button variant="countButton" onClick={decrement}>
+      <CounterBtn
+        variant="countButton"
+        onClick={decrement}
+        disabled={isDisabled}
+      >
         -
-      </Button>
+      </CounterBtn>
       <Box as="span" color={zeroColorChange}>
         {value}
       </Box>
-      <Button variant="countButton" onClick={increment}>
+      <CounterBtn variant="countButton" onClick={increment}>
         +
-      </Button>
+      </CounterBtn>
     </Box>
   );
 };

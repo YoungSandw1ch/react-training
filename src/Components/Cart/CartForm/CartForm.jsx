@@ -30,7 +30,7 @@ export const CartForm = ({ onSubmit }) => {
       gridColumnGap={3}
       justifyContent="center"
       alignItems="center"
-      mb={4}
+      mb={5}
       onSubmit={handleSubmit}
     >
       <Label>

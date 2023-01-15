@@ -1,4 +1,14 @@
 import styled from 'styled-components';
+import { IconButton } from 'Components/Common/IconButton';
+
+export const CloseBtn = styled(IconButton)`
+  padding: 0;
+  color: palevioletred;
+  & svg {
+    width: 25px;
+    height: 25px;
+  }
+`;
 
 export const Item = styled.li`
   border: ${({ theme }) => theme.borders.normal};

@@ -1,47 +1,57 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { Box } from 'Components/Common/Box.styled';
 import { CartForm } from './CartForm/CartForm';
 import { Loader } from './Loader/Loader';
 import { CartList } from './CartList/Cartlist';
 import { TotalAmount } from './TotalAmount/TotalAmount';
+import cardAPI from 'services/cardAPI';
 
-export const Cart = ({ initialState }) => {
+export const Cart = () => {
   const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
   const [isLoding, setIsLoading] = useState(false);
 
-  const handleChangeCount = (id, step) => {
-    setItems(prev =>
-      prev.map(item =>
-        item.id === id
-          ? {
-              ...item,
-              count: item.count + step > 0 ? item.count + step : 0,
-            }
-          : item
+  const editItemCount = (id, step) => {
+    setIsLoading(true);
+    cardAPI
+      .edit(id, step)
+      .then(data =>
+        setItems(prev => prev.map(item => (item.id === data.id ? data : item)))
       )
-    );
+      .catch(error => setError(error.message))
+      .finally(() => setIsLoading(false));
   };
 
-  const handleRemoveItem = id =>
-    setItems(prev => prev.filter(item => item.id !== id));
+  const deleteItem = id => {
+    setIsLoading(true);
+    cardAPI
+      .delete(id)
+      .then(() => setItems(prev => prev.filter(item => item.id !== id)))
+      .catch(error => setError(error.message))
+      .finally(() => setIsLoading(false));
+  };
 
-  const handleSubmit = item => setItems(prev => [...prev, item]);
+  const addItem = item => {
+    setIsLoading(true);
+    cardAPI
+      .add(item)
+      .then(data => setItems(prev => [...prev, data]))
+      .catch(error => setError(error.message))
+      .finally(() => setIsLoading(false));
+  };
 
   useEffect(() => {
     setIsLoading(true);
-    // setTimeout(() => {
-    setItems(JSON.parse(localStorage.getItem('card')));
-    setIsLoading(false);
-    // }, 2000);
+    cardAPI
+      .get()
+      .then(data => setItems(data))
+      .catch(error => setError(error.message))
+      .finally(() => setIsLoading(false));
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem('card', JSON.stringify(items));
-  }, [items]);
 
   return (
     <Box
+      position="relative"
       width="card"
       mx="auto"
       p={4}
@@ -49,25 +59,15 @@ export const Cart = ({ initialState }) => {
       borderRadius="normal"
       backgroundColor="tableHead"
     >
-      <CartForm onSubmit={handleSubmit} />
+      <CartForm onSubmit={addItem} />
+      {error && <Box as="p">{error}</Box>}
       {isLoding && <Loader>Loading...</Loader>}
       <CartList
         items={items}
-        onCountChange={handleChangeCount}
-        onRemoveItem={handleRemoveItem}
+        onCountChange={editItemCount}
+        onRemoveItem={deleteItem}
       />
       <TotalAmount items={items} />
     </Box>
   );
-};
-
-Cart.propTypes = {
-  initialState: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      count: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-    }).isRequired
-  ).isRequired,
 };

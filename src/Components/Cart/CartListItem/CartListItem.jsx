@@ -1,14 +1,15 @@
 import PropTypes from 'prop-types';
-import { Item, Property, Amount } from './CartListItem.styled';
-import { Button } from 'Components/Common';
+import { Item, Property, Amount, CloseBtn } from './CartListItem.styled';
+// import { Button } from 'Components/Common';
 import { Counter } from '../Counter';
+import { AiFillCloseCircle } from 'react-icons/ai';
 
 export const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
   const { price, count, name, id, guarantee } = item;
   const amount = +((guarantee ? price * 0.01 + price : price) * count).toFixed(
     1
   );
-  console.log(amount);
+
   const removeItem = () => onRemoveItem(id);
 
   return (
@@ -21,9 +22,9 @@ export const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
       <Counter id={id} value={count} onCountChange={onCountChange} />
 
       <Amount>{amount}$</Amount>
-      <Button variant="closeButton" onClick={removeItem}>
-        x
-      </Button>
+      <CloseBtn variant="closeButton" onClick={removeItem} aria-label="close">
+        <AiFillCloseCircle />
+      </CloseBtn>
     </Item>
   );
 };
