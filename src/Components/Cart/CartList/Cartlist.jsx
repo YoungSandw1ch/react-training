@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { CartListItem } from '../CartListItem/CartListItem';
+import CartListItem from '../CartListItem/CartListItem';
 import { Box } from 'Components/Common';
 
 export const CartList = ({ items, onCountChange, onRemoveItem }) => {

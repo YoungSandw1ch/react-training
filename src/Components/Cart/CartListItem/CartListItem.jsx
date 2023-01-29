@@ -1,16 +1,17 @@
 import PropTypes from 'prop-types';
 import { Item, Property, Amount, CloseBtn } from './CartListItem.styled';
-// import { Button } from 'Components/Common';
 import { Counter } from '../Counter';
 import { AiFillCloseCircle } from 'react-icons/ai';
+import { memo } from 'react';
 
-export const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
+const CartListItem = ({ item, onCountChange, onRemoveItem }) => {
   const { price, count, name, id, guarantee } = item;
   const amount = +((guarantee ? price * 0.01 + price : price) * count).toFixed(
     1
   );
 
   const removeItem = () => onRemoveItem(id);
+  console.log('render item: ', id);
 
   return (
     <Item>
@@ -40,3 +41,5 @@ CartListItem.propTypes = {
   onCountChange: PropTypes.func.isRequired,
   onRemoveItem: PropTypes.func.isRequired,
 };
+
+export default memo(CartListItem);

@@ -4,6 +4,7 @@ import { CartForm } from './CartForm/CartForm';
 import { Loader } from './Loader/Loader';
 import { CartList } from './CartList/Cartlist';
 import { TotalAmount } from './TotalAmount/TotalAmount';
+import { useCallback } from 'react';
 import cardAPI from 'services/cardAPI';
 
 export const Cart = () => {
@@ -11,25 +12,33 @@ export const Cart = () => {
   const [error, setError] = useState(null);
   const [isLoding, setIsLoading] = useState(false);
 
-  const editItemCount = (id, step) => {
-    setIsLoading(true);
-    cardAPI
-      .edit(id, step)
-      .then(data =>
-        setItems(prev => prev.map(item => (item.id === data.id ? data : item)))
-      )
-      .catch(error => setError(error.message))
-      .finally(() => setIsLoading(false));
-  };
+  const editItemCount = useCallback(
+    (id, step) => {
+      setIsLoading(true);
+      cardAPI
+        .edit(id, step)
+        .then(data =>
+          setItems(prev =>
+            prev.map(item => (item.id === data.id ? data : item))
+          )
+        )
+        .catch(error => setError(error.message))
+        .finally(() => setIsLoading(false));
+    },
+    [setIsLoading]
+  );
 
-  const deleteItem = id => {
-    setIsLoading(true);
-    cardAPI
-      .delete(id)
-      .then(() => setItems(prev => prev.filter(item => item.id !== id)))
-      .catch(error => setError(error.message))
-      .finally(() => setIsLoading(false));
-  };
+  const deleteItem = useCallback(
+    id => {
+      setIsLoading(true);
+      cardAPI
+        .delete(id)
+        .then(() => setItems(prev => prev.filter(item => item.id !== id)))
+        .catch(error => setError(error.message))
+        .finally(() => setIsLoading(false));
+    },
+    [setIsLoading]
+  );
 
   const addItem = item => {
     setIsLoading(true);
