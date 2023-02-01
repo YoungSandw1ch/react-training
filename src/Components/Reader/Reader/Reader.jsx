@@ -12,12 +12,10 @@ export function Reader({ items }) {
   useEffect(() => {
     const savedIndex = Number(localStorage.getItem('currentPublication'));
     if (fistRender.current && savedIndex) {
-      console.log('fist render');
       fistRender.current = false;
       setIndex(savedIndex);
     }
 
-    console.log('render');
     localStorage.setItem('currentPublication', index);
   }, [index]);
 

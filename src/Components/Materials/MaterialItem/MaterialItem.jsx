@@ -7,79 +7,61 @@ import {
 } from './MaterialItem.styled';
 import { GrEdit } from 'react-icons/gr';
 import { TiDelete } from 'react-icons/ti';
-import { Component } from 'react';
 import { MaterialItemEditModal } from '../MaterialItemEditModal';
 import { SkeletonMaterialItem } from '../SkeletonMaterialItem/';
+import { useState } from 'react';
 
-export class MaterialItem extends Component {
-  state = {
-    isModalOpen: false,
-    id: null,
-    isRemoved: false,
+export function MaterialItem({ isLoading, material, onDelete, onEdit }) {
+  const [index, setIndex] = useState(null);
+  const [isRemoved, setIsRemoved] = useState(false);
+
+  const deleteItem = async materialId => {
+    setIsRemoved(true);
+    setIndex(materialId);
+    await onDelete(material.id);
+    setIsRemoved(false);
+    setIndex(null);
   };
 
-  deleteItem = async materialId => {
-    const { onDelete } = this.props;
-    const { id } = this.props.material;
+  const openModal = () => setIndex(material.id);
 
-    this.setState({ isRemoved: true, id: materialId });
-    await onDelete(id);
-    this.setState({ isRemoved: false, id: null });
+  const closeModal = openModal => {
+    if (!openModal) return;
+    setIndex(null);
   };
 
-  openModal = id => {
-    this.setState({ isModalOpen: true, id });
-    // console.log(this.state);
-  };
+  const { link, title, id } = material;
 
-  closeModal = openModal => {
-    if (openModal) {
-      this.setState({ isModalOpen: false, id: null });
-      // console.log('close');
-    }
-  };
+  if ((isRemoved && id === index) || (isLoading && id === index)) {
+    return <SkeletonMaterialItem />;
+  }
 
-  render() {
-    const { isRemoved } = this.state;
-    const { closeModal, openModal, deleteItem } = this;
-    const { material, onEdit, isLoading } = this.props;
-    const { link, title, id } = material;
+  if (!isLoading && id === index) {
+    return (
+      <MaterialItemEditModal
+        material={material}
+        onEdit={onEdit}
+        closeModal={closeModal}
+      />
+    );
+  }
 
-    if (isRemoved && id === this.state.id) {
-      return <SkeletonMaterialItem />;
-    }
-
-    if (isLoading && id === this.state.id) {
-      return <SkeletonMaterialItem />;
-    }
-
-    if (!isLoading && id === this.state.id) {
-      return (
-        <MaterialItemEditModal
-          material={material}
-          onEdit={onEdit}
-          closeModal={closeModal}
-        />
-      );
-    }
-
-    if (id !== this.state.id) {
-      return (
-        <>
-          <Box>
-            <TitleText>{link}</TitleText>
-            <LinkText>{title}</LinkText>
-          </Box>
-          <Box>
-            <DeleteButton type="button" onClick={() => deleteItem(id)}>
-              <TiDelete />
-            </DeleteButton>
-            <EditButton type="button" onClick={() => openModal(id)}>
-              <GrEdit />
-            </EditButton>
-          </Box>
-        </>
-      );
-    }
+  if (id !== index) {
+    return (
+      <>
+        <Box>
+          <TitleText>{link}</TitleText>
+          <LinkText>{title}</LinkText>
+        </Box>
+        <Box>
+          <DeleteButton type="button" onClick={() => deleteItem(id)}>
+            <TiDelete />
+          </DeleteButton>
+          <EditButton type="button" onClick={openModal}>
+            <GrEdit />
+          </EditButton>
+        </Box>
+      </>
+    );
   }
 }
