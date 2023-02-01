@@ -1,12 +1,12 @@
 import { Layout } from '../utils/Layout';
 import { GlobalStyle } from '../utils/GlobalStyle';
-import { Component } from 'react';
 import { SkeletonTheme } from 'react-loading-skeleton';
 import { CreateMaterialForm } from '../CreateMaterialForm';
 import { Box } from 'Components/Common';
 import * as API from 'services/materialAPI';
 import { MaterialsList } from '../MaterialsList';
 import { SkeletonItems } from '../SkeletonMaterialsItems';
+import { useState, useEffect } from 'react';
 
 // const status = {
 //   IDLE: 'idle',
@@ -15,103 +15,96 @@ import { SkeletonItems } from '../SkeletonMaterialsItems';
 //   RESOLVE: 'resolve',
 // };
 
-export class App extends Component {
-  state = {
-    materials: [],
-    error: null,
-    isLoading: false,
-    allItemsLoading: false,
-    // status: status.IDLE,
-  };
+export function App() {
+  const [materials, setMaterials] = useState([]);
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [allItemsLoading, setAllItemsLoading] = useState(false);
 
-  async componentDidMount() {
-    try {
-      this.setState({ allItemsLoading: true });
-      const materials = await API.GetMaterials();
-      this.setState({ materials });
-    } catch (error) {
-      console.log(error.message);
-      this.setState({ error });
-    } finally {
-      this.setState({ allItemsLoading: false });
+  useEffect(() => {
+    async function fetch() {
+      try {
+        setAllItemsLoading(true);
+        const materials = await API.GetMaterials();
+        setMaterials(materials);
+      } catch (error) {
+        console.log(error.message);
+        setError(error);
+      } finally {
+        setAllItemsLoading(false);
+      }
     }
-  }
+    fetch();
+  }, []);
 
-  addMaterial = async material => {
+  const addMaterial = async material => {
     try {
-      this.setState({ allItemsLoading: true });
+      setAllItemsLoading(true);
       const newMaterial = await API.AddMaterial(material);
-      this.setState({ materials: [...this.state.materials, newMaterial] });
+      setMaterials([...materials, newMaterial]);
     } catch (error) {
       console.log(error.message);
-      this.setState({ error });
+      setError(error);
     } finally {
-      this.setState({ allItemsLoading: false });
+      setAllItemsLoading(false);
     }
   };
 
-  deleteMaterial = async id => {
+  const deleteMaterial = async id => {
     const filterState = mats => mats.filter(mat => mat.id !== id);
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
       await API.DeleteMaterial(id);
-      this.setState(state => ({
-        materials: filterState(state.materials),
-      }));
+      setMaterials(filterState);
     } catch (error) {
       console.log(error.message);
-      this.setState({ error });
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  editMaterial = async (id, values) => {
+  const editMaterial = async (id, values) => {
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
       const changedMaterial = await API.EditMaterial(id, values);
       const changeMaterials = mats =>
         mats.map(mat => (mat.id !== id ? mat : changedMaterial));
 
-      this.setState(state => ({ materials: changeMaterials(state.materials) }));
+      setMaterials(changeMaterials);
     } catch (error) {
       console.log(error.message);
-      this.setState({ error });
+      setError(error);
     } finally {
-      this.setState({ isLoading: false });
+      setIsLoading(false);
     }
   };
 
-  render() {
-    const { addMaterial, deleteMaterial, editMaterial } = this;
-    const { materials, isLoading, error, allItemsLoading } = this.state;
+  return (
+    <Layout>
+      <GlobalStyle />
+      <SkeletonTheme color="#313131" highlightColor="#525252">
+        <Box mx="auto" width="container" p={4}>
+          <CreateMaterialForm onSubmit={addMaterial} />
 
-    return (
-      <Layout>
-        <GlobalStyle />
-        <SkeletonTheme color="#313131" highlightColor="#525252">
-          <Box mx="auto" width="container" p={4}>
-            <CreateMaterialForm onSubmit={addMaterial} />
+          {error && (
+            <Box as="p">
+              Опачки! Что то пошло не так , попробуйте перегрузить страницу.
+            </Box>
+          )}
 
-            {error && (
-              <Box as="p">
-                Опачки! Что то пошло не так , попробуйте перегрузить страницу.
-              </Box>
-            )}
-
-            {allItemsLoading ? (
-              <SkeletonItems items={8} />
-            ) : (
-              <MaterialsList
-                isLoading={isLoading}
-                materials={materials}
-                onDelete={deleteMaterial}
-                onEdit={editMaterial}
-              />
-            )}
-          </Box>
-        </SkeletonTheme>
-      </Layout>
-    );
-  }
+          {allItemsLoading ? (
+            <SkeletonItems items={8} />
+          ) : (
+            <MaterialsList
+              isLoading={isLoading}
+              materials={materials}
+              onDelete={deleteMaterial}
+              onEdit={editMaterial}
+            />
+          )}
+        </Box>
+      </SkeletonTheme>
+    </Layout>
+  );
 }
