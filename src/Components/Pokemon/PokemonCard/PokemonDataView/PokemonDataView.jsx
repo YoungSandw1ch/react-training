@@ -4,7 +4,6 @@ import { Name, Img } from './PokemonDataView.styled';
 import { PokemonStatsItem } from './PokemonStatsItem';
 
 export const PokemonDataView = ({ pokemon }) => {
-  console.log(pokemon);
   const { name, sprites, stats } = pokemon;
   const url = sprites.other['official-artwork'].front_default;
 
