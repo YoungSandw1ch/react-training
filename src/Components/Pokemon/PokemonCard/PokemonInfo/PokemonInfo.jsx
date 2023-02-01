@@ -19,9 +19,8 @@ export function PokemonInfo({ pokemonName }) {
   const [status, setStatus] = useState(STATUS.IDLE);
 
   useEffect(() => {
-    if (!pokemonName) return;
-    //перед початком запиту міняемо статус на виконуеться, який зміниться в процесі запиту на виконано або відхилено
-    setStatus(STATUS.PENDING);
+    if (!pokemonName) return; //робимо виключення фетчу при першому монтуваннi
+    setStatus(STATUS.PENDING); //перед початком запиту міняемо статус на виконуеться, який зміниться в процесі запиту на виконано або відхилено
 
     pokemonAPI
       .fetchPokemon(pokemonName)
