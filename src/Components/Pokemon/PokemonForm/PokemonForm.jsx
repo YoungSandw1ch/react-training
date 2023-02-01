@@ -1,42 +1,41 @@
-import { Component } from 'react';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { Form, Input, Button } from './PokemonForm.styled';
 import { FcSearch } from 'react-icons/fc';
 
-export class PokemonForm extends Component {
-  state = {
-    pokemonName: '',
-  };
+export function PokemonForm({ onSubmit }) {
+  const [pokemonName, setPokemonName] = useState('');
 
-  handleInputChange = e => {
+  const handleInputChange = e => {
     const name = e.target.value.toLowerCase();
-    this.setState({ pokemonName: name });
+    setPokemonName(name);
   };
 
-  handleFormSubmit = e => {
+  const handleFormSubmit = e => {
     e.preventDefault();
 
-    const { pokemonName } = this.state;
     if (pokemonName.trim() === '') {
       toast.warn('Введите имя покемона');
       return;
     }
 
-    this.props.onSubmit(pokemonName);
-    this.setState({ pokemonName: '' });
+    onSubmit(pokemonName);
+    setPokemonName('');
     e.currentTarget.reset();
   };
 
-  render() {
-    const { handleFormSubmit, handleInputChange } = this;
-    return (
-      <Form onSubmit={handleFormSubmit}>
-        <Input type="text" name="name" onChange={handleInputChange} />
-        <Button>
-          <FcSearch />
-          Найти
-        </Button>
-      </Form>
-    );
-  }
+  return (
+    <Form onSubmit={handleFormSubmit}>
+      <Input type="text" name="name" onChange={handleInputChange} />
+      <Button>
+        <FcSearch />
+        Найти
+      </Button>
+    </Form>
+  );
 }
+
+PokemonForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};

@@ -1,6 +1,7 @@
-import { Component } from 'react';
-import { Box } from 'Components/Common';
+import PropTypes from 'prop-types';
 import pokemonAPI from 'services/pokemonAPI';
+import { useState, useEffect } from 'react';
+import { Box } from 'Components/Common';
 import { PokemonDataView } from '../PokemonDataView';
 import { PokemonPendingView } from '../PokemonPendingView';
 import { PokemonErrorView } from '../PokemonErrorView';
@@ -12,41 +13,42 @@ const STATUS = {
   RESOLVE: 'resolve',
 };
 
-export class PokemonInfo extends Component {
-  state = {
-    pokemon: null,
-    error: null,
-    status: STATUS.IDLE,
-  };
+export function PokemonInfo({ pokemonName }) {
+  const [pokemon, setPokemon] = useState(null);
+  const [error, setError] = useState(null);
+  const [status, setStatus] = useState(STATUS.IDLE);
 
-  componentDidUpdate(pProps, pState) {
-    const prevName = pProps.pokemonName;
-    const nextName = this.props.pokemonName;
-    if (prevName === nextName) return;
-    const pokemonName = this.props.pokemonName;
+  useEffect(() => {
+    if (!pokemonName) return;
     //перед початком запиту міняемо статус на виконуеться, який зміниться в процесі запиту на виконано або відхилено
-    this.setState({ status: STATUS.PENDING });
+    setStatus(STATUS.PENDING);
 
     pokemonAPI
       .fetchPokemon(pokemonName)
-      .then(pokemon => this.setState({ pokemon, status: STATUS.RESOLVE }))
-      .catch(error => this.setState({ error, status: STATUS.REJECT }));
+      .then(pokemon => {
+        setPokemon(pokemon);
+        setStatus(STATUS.RESOLVE);
+      })
+      .catch(error => {
+        setError(error);
+        setStatus(STATUS.REJECT);
+      });
+  }, [pokemonName]);
+
+  if (status === STATUS.IDLE) {
+    return <Box>Введите название покемона</Box>;
   }
-
-  render() {
-    const { pokemon, error, status } = this.state;
-
-    if (status === STATUS.IDLE) {
-      return <Box>Введите название покемона</Box>;
-    }
-    if (status === STATUS.PENDING) {
-      return <PokemonPendingView />;
-    }
-    if (status === STATUS.REJECT) {
-      return <PokemonErrorView error={error} />;
-    }
-    if (status === STATUS.RESOLVE) {
-      return <PokemonDataView pokemon={pokemon} />;
-    }
+  if (status === STATUS.PENDING) {
+    return <PokemonPendingView />;
+  }
+  if (status === STATUS.REJECT) {
+    return <PokemonErrorView error={error} />;
+  }
+  if (status === STATUS.RESOLVE) {
+    return <PokemonDataView pokemon={pokemon} />;
   }
 }
+
+PokemonInfo.propTypes = {
+  pokemonName: PropTypes.string.isRequired,
+};
