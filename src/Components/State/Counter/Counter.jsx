@@ -1,44 +1,33 @@
-import React, { Component } from 'react';
 import styles from './counter.module.css';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { Box } from 'Components/Common';
 import { CounterControls } from './CounterControls';
+import { CounterBody } from './CounterBody';
 
-export class Counter extends Component {
-  static defaultProps = {
-    initialValue: 0,
+export const Counter = ({ initialValue }) => {
+  const [value, setValue] = useState(initialValue);
+  const [step, setStep] = useState(1);
+
+  const onIncrement = () => {
+    setValue(value => value + step);
   };
 
-  static propTypes = {
-    initialValue: PropTypes.number,
+  const onDecrement = () => {
+    setValue(value => value - step);
   };
 
-  state = {
-    value: this.props.initialValue,
+  const onStepChange = e => {
+    setStep(Number(e.target.value));
   };
 
-  onIncrement = () => {
-    this.setState(prevState => ({
-      value: prevState.value + 1,
-    }));
-  };
-
-  onDecrement = () => {
-    this.setState(prevState => ({
-      value: prevState.value - 1,
-    }));
-  };
-
-  render() {
-    const { value } = this.state;
-    return (
-      <div className={styles.counter}>
-        <span className={styles.counter__value}>{value}</span>
-
-        <CounterControls
-          onDecrement={this.onDecrement}
-          onIncrement={this.onIncrement}
-        />
-      </div>
-    );
-  }
-}
+  return (
+    <Box className={styles.counter}>
+      <CounterBody value={value} />
+      <CounterControls
+        onDecrement={onDecrement}
+        onIncrement={onIncrement}
+        onStepChange={onStepChange}
+      />
+    </Box>
+  );
+};
