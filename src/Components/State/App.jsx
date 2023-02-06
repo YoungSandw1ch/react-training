@@ -4,7 +4,7 @@ import { Dropdown } from './Dropdown';
 import { ColorPicker } from './ColorPicker';
 import { colorPickerOptions } from './ColorPicker/options';
 
-export function App() {
+export const App = () => {
   return (
     <Box p={5} mx="auto" width="container" display="flex" gridColumnGap={3}>
       <Counter initialValue={0} />
@@ -12,4 +12,4 @@ export function App() {
       <ColorPicker options={colorPickerOptions} />
     </Box>
   );
-}
+};
