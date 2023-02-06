@@ -1,14 +1,17 @@
-import { Box } from 'Components/Common';
 import styles from './counterControl.module.css';
+import { Box } from 'Components/Common';
+import { useCounterContext } from '../context';
 
-export const CounterControls = ({ onIncrement, onDecrement, onStepChange }) => {
+export const CounterControls = () => {
+  const { step, onIncrement, onDecrement, onStepChange } = useCounterContext();
+
   return (
     <Box className={styles.counter__controls}>
       <button type="button" onClick={onDecrement}>
         Уменьшить
       </button>
 
-      <select name="select" onChange={onStepChange}>
+      <select value={step} onChange={onStepChange}>
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="5">5</option>
