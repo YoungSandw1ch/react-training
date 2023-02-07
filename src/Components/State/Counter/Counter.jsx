@@ -14,7 +14,7 @@ import { CounterContext } from './context';
 
 // const reducer = (state, actions) => {
 //   switch (actions.type) {
-//     case 'eee':
+//     case 'increment':
 //       return 'eee';
 //     default:
 //       return state;
@@ -24,6 +24,7 @@ import { CounterContext } from './context';
 // console.log(reducer);
 
 export const Counter = ({ initialValue }) => {
+  // const [state, dispatch] = useReducer(reducer, initialState, third);
   const [value, setValue] = useState(initialValue);
   const [step, setStep] = useState(1);
 
