@@ -1,9 +1,14 @@
 import styles from './counterControl.module.css';
 import { Box } from 'Components/Common';
-import { useCounterContext } from '../context';
+import { useCounterContext } from '../utils/context';
+import { increment, decrement, setStep } from '../utils/actions/actions';
 
 export const CounterControls = () => {
-  const { step, onIncrement, onDecrement, onStepChange } = useCounterContext();
+  const { state, dispatch } = useCounterContext();
+  const { step } = state;
+  const onIncrement = () => dispatch(increment());
+  const onDecrement = () => dispatch(decrement());
+  const onStepChange = e => dispatch(setStep(Number(e.target.value)));
 
   return (
     <Box className={styles.counter__controls}>
