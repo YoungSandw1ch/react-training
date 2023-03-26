@@ -11,7 +11,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 // import { App } from './Components/Reader/App';
 // import { App } from './Components/Pokemon/App';
 // import { App } from './Components/Materials/App';
-import { App } from 'Components/RouterDom/App';
+import { App } from 'Components/BrowserRouter/App';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './constants/thema';
 
