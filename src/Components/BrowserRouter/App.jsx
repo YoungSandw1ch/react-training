@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 import Homepage from 'Project/BrowserRouter/Pages/Home';
 import Contacts from 'Project/BrowserRouter/Pages/Contacts';
+import NotFound from 'Project/BrowserRouter/Pages/NotFound';
 import Dogs from 'Project/BrowserRouter/Pages/Dogs';
 import DogsDetails from 'Project/BrowserRouter/Pages/DogDetails';
 import { Subbreads } from './Subbreads/Subbreads';
@@ -18,6 +19,7 @@ export const App = () => {
           <Route path="subbreads" element={<Subbreads />} />
           <Route path="gallery" element={<Gallery />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );
