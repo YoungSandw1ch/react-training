@@ -10,10 +10,10 @@ const CounterPage = () => {
   };
 
   return (
-    <div>
+    <>
       <h1>Counter</h1>
       <Counter id={0} value={count} onCountChange={changeCount} />
-    </div>
+    </>
   );
 };
 
