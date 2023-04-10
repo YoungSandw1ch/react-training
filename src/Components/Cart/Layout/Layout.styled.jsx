@@ -6,8 +6,8 @@ export const Navigation = styled.nav`
   align-items: center;
   justify-content: center;
 
-  column-gap: 15px;
-  padding: 15px;
+  column-gap: 18px;
+  padding: 18px;
 `;
 
 export const StyledLink = styled(NavLink)`
